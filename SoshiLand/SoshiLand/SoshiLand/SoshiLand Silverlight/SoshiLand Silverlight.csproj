@@ -114,6 +114,7 @@
     <None Include="TestPageDebug.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assets\Board2000x2000.png" />
     <Content Include="GameData\ChanceCards.xml" />
     <Content Include="GameData\CommunityChestCards.xml" />
     <Content Include="Content\assets\chance1.jpg" />

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Text;
+using System.Windows.Browser;
 using ExEnSilver.Graphics;
 
 // For Network
@@ -33,8 +34,18 @@ namespace SoshiLandSilverlight
 
         public static ContentManager Content;
 
+        // Browser window dimensions
+        int windowHeight;
+        int windowWidth;
+        int preferredWindowWidth;
+        int preferredWindowHeight;
+
+        // Board Dimensions
+        int backgroundHeight;
+        int backgroundWidth;
+
         // For debugging, since Silverlight doesn't seem to allow debugging within the IDE.
-        public static bool DEBUG = true;
+        public static bool DEBUG = false;
         public static string DEBUGMESSAGE = "Initial Debug Message";
         public static DebugMessageQueue debugMessageQueue;
 
@@ -82,8 +93,19 @@ namespace SoshiLandSilverlight
             // Preferred window size is 640x640
             //graphics.PreferredBackBufferHeight = 640;
             //graphics.PreferredBackBufferWidth = 640;
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1280;
+
+            //graphics.PreferredBackBufferHeight = 480;
+            //graphics.PreferredBackBufferWidth = 640;
+
+            windowWidth = Convert.ToInt16(HtmlPage.Window.Eval("screen.availWidth").ToString());
+            windowHeight = Convert.ToInt16(HtmlPage.Window.Eval("screen.availHeight").ToString());
+
+            preferredWindowWidth = (int)(windowWidth / 1.5);
+            preferredWindowHeight = (int)(windowHeight / 1.5);
+
+
+            graphics.PreferredBackBufferHeight = preferredWindowHeight;
+            graphics.PreferredBackBufferWidth = preferredWindowWidth;
 
             playerStringArray = players;
         }
@@ -116,9 +138,14 @@ namespace SoshiLandSilverlight
             spriteBatch = new SpriteBatch( GraphicsDevice );
             
             // Load the background which is also the board.
-            background = base.Content.Load<Texture2D>("assets/main_screen_wide");
-            mainFrame = new Rectangle( 200, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height );
-            zoomPos = new Vector2( (float) mainFrame.Width * (float) 0.84375, (float) mainFrame.Height * (float) 0.0875 );
+            background = base.Content.Load<Texture2D>("assets/Board2000x2000");
+            backgroundHeight = background.Height;
+            backgroundWidth = background.Width;
+
+            // Calculate size of rectangle based on browser height and width
+
+            mainFrame = new Rectangle((preferredWindowWidth / 2) - (preferredWindowHeight / 2), 0, preferredWindowHeight, preferredWindowHeight);
+            zoomPos = new Vector2((float)preferredWindowWidth * (float)0.84375, (float)preferredWindowHeight * (float)0.0875);
             
             // Load property cards.
             propLaScala = Content.Load<Texture2D>( "assets\\prop_la_scala" );
@@ -222,12 +249,19 @@ namespace SoshiLandSilverlight
             
             spriteBatch.Draw( background, mainFrame, Color.White );
 
-            
+            float ratioBlackBorder = 20f / 7050f;
+            float ratioCornerBoxes = 800f / 7050f;
+            float ratioSideBoxes = 470f / 7050f;
+            float ratioSideHeight = 840f / 7050f;
+
             // Draw a property card based on the current drawId
             switch ( drawId )
             {
                 case Props.LaScala:
-                    spriteBatch.Draw( propLaScala, zoomPos, Color.White );
+                    spriteBatch.Draw(background,
+                        new Rectangle(1100, 0, 290 / 2, 480 / 2),
+                        new Rectangle((int)(backgroundHeight * (ratioBlackBorder + ratioCornerBoxes)), 0, (int)(backgroundWidth * (ratioSideBoxes + ratioBlackBorder *2)), (int)(backgroundHeight * ratioSideHeight)), 
+                        Color.White, MathHelper.ToRadians(180), new Vector2(290/2, 480/2), SpriteEffects.None, 0f);
                     break;
                 case Props.Bali:
                     spriteBatch.Draw( propBali, zoomPos, Color.White );
