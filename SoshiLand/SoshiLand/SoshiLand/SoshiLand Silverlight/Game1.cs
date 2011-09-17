@@ -37,12 +37,12 @@ namespace SoshiLandSilverlight
         // Browser window dimensions
         int windowHeight;
         int windowWidth;
-        int preferredWindowWidth;
-        int preferredWindowHeight;
+        public static int preferredWindowWidth;
+        public static int preferredWindowHeight;
 
         // Board Dimensions
-        int backgroundHeight;
-        int backgroundWidth;
+        public static int backgroundHeight;
+        public static int backgroundWidth;
 
         // For debugging, since Silverlight doesn't seem to allow debugging within the IDE.
         public static bool DEBUG = false;
@@ -62,7 +62,7 @@ namespace SoshiLandSilverlight
 
 
         // The background which is also the board.
-        Texture2D background;
+        public static Texture2D background;
 
         // Sprites of property cards.
         Texture2D propLaScala;
@@ -76,9 +76,6 @@ namespace SoshiLandSilverlight
         Texture2D propParthenon;
         Texture2D chance1;
         Texture2D forever9;
-
-        // The position to display a magnified property card.
-        Vector2 zoomPos;
 
         // An integer that determines which property card to show. 0 means no card is selected.
         Props drawId = Props.None;
@@ -97,13 +94,13 @@ namespace SoshiLandSilverlight
             //graphics.PreferredBackBufferHeight = 480;
             //graphics.PreferredBackBufferWidth = 640;
 
+            // This is the resolution of the player's monitor
             windowWidth = Convert.ToInt16(HtmlPage.Window.Eval("screen.availWidth").ToString());
             windowHeight = Convert.ToInt16(HtmlPage.Window.Eval("screen.availHeight").ToString());
 
+            // Shrinking the window to be a ratio of the monitor resolution
             preferredWindowWidth = (int)(windowWidth / 1.5);
             preferredWindowHeight = (int)(windowHeight / 1.5);
-
-
             graphics.PreferredBackBufferHeight = preferredWindowHeight;
             graphics.PreferredBackBufferWidth = preferredWindowWidth;
 
@@ -143,10 +140,10 @@ namespace SoshiLandSilverlight
             backgroundWidth = background.Width;
 
             // Calculate size of rectangle based on browser height and width
+            mainFrame = new Rectangle(
+                (preferredWindowWidth / 2) - (preferredWindowHeight / 2), 0, 
+                (int)(preferredWindowHeight*1.0f), (int)(preferredWindowHeight*1.0f));
 
-            mainFrame = new Rectangle((preferredWindowWidth / 2) - (preferredWindowHeight / 2), 0, preferredWindowHeight, preferredWindowHeight);
-            zoomPos = new Vector2((float)preferredWindowWidth * (float)0.84375, (float)preferredWindowHeight * (float)0.0875);
-            
             // Load property cards.
             propLaScala = Content.Load<Texture2D>( "assets\\prop_la_scala" );
             propBali = Content.Load<Texture2D>( "assets\\prop_bali" );
@@ -193,9 +190,11 @@ namespace SoshiLandSilverlight
             //}
 
             MouseState ms = Mouse.GetState();
-            
+
+            drawId = SoshiLandUIFunctions.MouseCursorHoverForZoom(ms);
+
             // Set drawId based on the mouse position when left-clicked. Commented out to develop new UI.
-            if ( ms.Y <= 84 )
+            /*if ( ms.Y <= 84 )
             {
                 if ( ms.X >= 324 )
                 {
@@ -226,7 +225,7 @@ namespace SoshiLandSilverlight
                 else drawId = Props.None;
             }
             else drawId = Props.None;
-            
+            */
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
 
@@ -241,57 +240,47 @@ namespace SoshiLandSilverlight
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw( GameTime gameTime )
         {
-            GraphicsDevice.Clear( Color.White );
-
+            GraphicsDevice.Clear( Color.Pink);
             
             spriteBatch.Begin();
-
             
             spriteBatch.Draw( background, mainFrame, Color.White );
-
-            float ratioBlackBorder = 20f / 7050f;
-            float ratioCornerBoxes = 800f / 7050f;
-            float ratioSideBoxes = 470f / 7050f;
-            float ratioSideHeight = 840f / 7050f;
 
             // Draw a property card based on the current drawId
             switch ( drawId )
             {
                 case Props.LaScala:
-                    spriteBatch.Draw(background,
-                        new Rectangle(1100, 0, 290 / 2, 480 / 2),
-                        new Rectangle((int)(backgroundHeight * (ratioBlackBorder + ratioCornerBoxes)), 0, (int)(backgroundWidth * (ratioSideBoxes + ratioBlackBorder *2)), (int)(backgroundHeight * ratioSideHeight)), 
-                        Color.White, MathHelper.ToRadians(180), new Vector2(290/2, 480/2), SpriteEffects.None, 0f);
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 1, spriteBatch);
                     break;
                 case Props.Bali:
-                    spriteBatch.Draw( propBali, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 2, spriteBatch);
                     break;
                 case Props.Chance1:
-                    spriteBatch.Draw( chance1, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 3, spriteBatch);
                     break;
                 case Props.TempleMount:
-                    spriteBatch.Draw( propTempMount, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 4, spriteBatch);
                     break;
                 case Props.DamnoenMarket:
-                    spriteBatch.Draw( propDamnoenMart, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 5, spriteBatch);
                     break;
                 case Props.GreatWall:
-                    spriteBatch.Draw( propGreatWall, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 6, spriteBatch);
                     break;
                 case Props.TajMahal:
-                    spriteBatch.Draw( propTajMahal, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 7, spriteBatch);
                     break;
                 case Props.StatueLiberty:
-                    spriteBatch.Draw( propStatLiberty, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 8, spriteBatch);
                     break;
                 case Props.Forever9:
-                    spriteBatch.Draw( forever9, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 9, spriteBatch);
                     break;
                 case Props.EiffelTower:
-                    spriteBatch.Draw( propEiffel, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 10, spriteBatch);
                     break;
                 case Props.Parthenon:
-                    spriteBatch.Draw( propParthenon, zoomPos, Color.White );
+                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 11, spriteBatch);
                     break;
                 default:
                     break;

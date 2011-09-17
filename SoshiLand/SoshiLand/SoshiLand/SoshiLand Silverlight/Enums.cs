@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SoshiLandSilverlight
 {
-    enum Props
+    public enum Props
     {
         None,
         LaScala,
@@ -50,8 +50,12 @@ namespace SoshiLandSilverlight
         ShoppingSpree,
         LuxuryTax,
         Chance2,
-        SoshiBond
-    };
+        SoshiBond,
+        Go,
+        Babysit,
+        GoBabysit,
+        FanMeeting
+    }
 
     public enum TileType
     {
@@ -65,7 +69,7 @@ namespace SoshiLandSilverlight
         Utility,
         FanMeeting,
         GoToJail
-    };
+    }
 
     public enum SpecialCardType
     {
@@ -73,7 +77,7 @@ namespace SoshiLandSilverlight
         GetOutOfJailFreeCard,
         GoToJailCard,
         CanPassGo
-    };
+    }
 
     public enum GameState
     {
