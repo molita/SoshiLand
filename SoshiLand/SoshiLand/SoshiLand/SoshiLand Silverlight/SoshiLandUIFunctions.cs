@@ -49,8 +49,7 @@ namespace SoshiLandSilverlight
                 if (mouseState.X <= window_leftSideOfBoard)
                     return Props.None;
                 else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder)
-                    //return Props.FanMeeting;
-                    return Props.None;
+                    return Props.FanMeeting;
                 else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 1))
                     return Props.LaScala;
                 else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 2))
@@ -73,8 +72,39 @@ namespace SoshiLandSilverlight
                     return Props.EiffelTower;
                 else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 11))
                     return Props.Parthenon;
+                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 11) + window_cornerBoxIncludingBorder)
+                    return Props.GoBabysit;
             }
+            
+            // Check if the mouse is within bounds of the left column
+            if (mouseState.X <= (ratioSideHeight * Game1.preferredWindowHeight) + window_leftSideOfBoard && mouseState.X >= window_leftSideOfBoard)
+            {
+                if (mouseState.Y <= 0)
+                    return Props.None;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 1)
+                    return Props.GizaPyramid;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 2)
+                    return Props.BigBen;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 3)
+                    return Props.Pisa;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 4)
+                    return Props.CommChest;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 5)
+                    return Props.BarrierReef;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 6)
+                    return Props.WencelsasSquare;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 7)
+                    return Props.BarcelonaAirport;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 8)
+                    return Props.MalibuBeach;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 9)
+                    return Props.SoshiBond;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 10)
+                    return Props.GoldenGateBridge;
+                else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 11)
+                    return Props.SydneyOpera;
 
+            }
 
             return Props.None;
 
@@ -98,20 +128,57 @@ namespace SoshiLandSilverlight
                 case Props.EiffelTower:
                 case Props.Parthenon:
                     spriteBatch.Draw(Game1.background,
-                        new Rectangle(window_rightSideOfBoard, (zoomHeight / 2), zoomWidth, zoomHeight),
+                        new Rectangle(window_rightSideOfBoard + (zoomWidth) + ((((Game1.preferredWindowWidth - Game1.preferredWindowHeight) / 2) - zoomWidth) / 2), zoomHeight, zoomWidth, zoomHeight),
                         new Rectangle(orig_startOfSideRow + (positionFromLeftToRightOrTopToBottomExcludingCorner - 1) * orig_oneSideBox, 0, (int)(Game1.backgroundWidth * (ratioSideBoxes + ratioBlackBorder * 2)), (int)(Game1.backgroundHeight * ratioSideHeight)),
-                        Color.White, MathHelper.ToRadians(180), new Vector2(zoomWidth / 2, zoomHeight / 2), SpriteEffects.None, 0f);
+                        Color.White, MathHelper.ToRadians(180), Vector2.Zero, SpriteEffects.None, 0f);
                     break;
 
                     // Bottom Row items
-                    
+                
+
                     // Left Column Items
 
+                case Props.GizaPyramid:
+                case Props.BigBen:
+                case Props.Pisa:
+                case Props.CommChest:
+                case Props.BarrierReef:
+                case Props.WencelsasSquare:
+                case Props.BarcelonaAirport:
+                case Props.MalibuBeach:
+                case Props.SoshiBond:
+                case Props.GoldenGateBridge:
+                case Props.SydneyOpera:
+                    spriteBatch.Draw(Game1.background,
+                        new Rectangle(window_rightSideOfBoard + ((((Game1.preferredWindowWidth - Game1.preferredWindowHeight) / 2) - zoomWidth) / 2), zoomHeight, zoomHeight, zoomWidth),
+                        new Rectangle(0, orig_startOfSideRow + (positionFromLeftToRightOrTopToBottomExcludingCorner - 1) * orig_oneSideBox, (int)(Game1.backgroundHeight * ratioSideHeight), (int)(Game1.backgroundWidth * (ratioSideBoxes + ratioBlackBorder * 2))),
+                        Color.White, MathHelper.ToRadians(270), Vector2.Zero, SpriteEffects.None, 0f);
+                    break;
+
                     // Right Column Items
-                    //case Props.FanMeeting
-                    //spriteBatch.d
+
+                    // Corner Items
+                
             }
         }
 
+        public static void DrawZoomInCornerBoxes(Props prop, SpriteBatch spriteBatch)
+        {
+            switch (prop)
+            {
+                case Props.FanMeeting:
+                    spriteBatch.Draw(Game1.background,
+                        new Rectangle(window_rightSideOfBoard + (zoomWidth) + ((((Game1.preferredWindowWidth - Game1.preferredWindowHeight) / 2) - zoomWidth) / 2), zoomWidth + ((zoomHeight - zoomWidth) / 2), zoomWidth, zoomWidth),
+                        new Rectangle(0, 0, (int)(Game1.backgroundWidth * (ratioCornerBoxes + ratioBlackBorder * 2)), (int)(Game1.backgroundHeight * ratioSideHeight)),
+                        Color.White, MathHelper.ToRadians(180), Vector2.Zero, SpriteEffects.None, 0f);
+                    break;
+                case Props.GoBabysit:
+                    spriteBatch.Draw(Game1.background,
+                        new Rectangle(window_rightSideOfBoard + (zoomWidth) + ((((Game1.preferredWindowWidth - Game1.preferredWindowHeight) / 2) - zoomWidth) / 2), zoomWidth + ((zoomHeight - zoomWidth) / 2), zoomWidth, zoomWidth),
+                        new Rectangle(Game1.backgroundWidth - (int)(Game1.backgroundWidth * (ratioCornerBoxes + ratioBlackBorder * 2)), 0, (int)(Game1.backgroundWidth * (ratioCornerBoxes + ratioBlackBorder * 2)), (int)(Game1.backgroundHeight * ratioSideHeight)),
+                        Color.White, MathHelper.ToRadians(180), Vector2.Zero, SpriteEffects.None, 0f);
+                    break;
+            }
+        }
     }
 }
