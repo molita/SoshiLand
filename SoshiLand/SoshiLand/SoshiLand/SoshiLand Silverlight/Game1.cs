@@ -249,79 +249,60 @@ namespace SoshiLandSilverlight
             // Draw a property card based on the current drawId
             switch ( drawId )
             {
-                case Props.FanMeeting:
-                    SoshiLandUIFunctions.DrawZoomInCornerBoxes(Props.FanMeeting, spriteBatch);
-                    break;
-                case Props.GoBabysit:
-                    SoshiLandUIFunctions.DrawZoomInCornerBoxes(Props.GoBabysit, spriteBatch);
-                    break;
-                case Props.LaScala:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 1, spriteBatch);
-                    break;
-                case Props.Bali:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 2, spriteBatch);
-                    break;
-                case Props.Chance1:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 3, spriteBatch);
-                    break;
-                case Props.TempleMount:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 4, spriteBatch);
-                    break;
-                case Props.DamnoenMarket:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 5, spriteBatch);
-                    break;
-                case Props.GreatWall:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 6, spriteBatch);
-                    break;
-                case Props.TajMahal:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 7, spriteBatch);
-                    break;
-                case Props.StatueLiberty:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 8, spriteBatch);
-                    break;
-                case Props.Forever9:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 9, spriteBatch);
-                    break;
-                case Props.EiffelTower:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 10, spriteBatch);
-                    break;
-                case Props.Parthenon:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 11, spriteBatch);
-                    break;
+                case Props.FanMeeting:  SoshiLandUIFunctions.DrawZoomInCornerBoxes(Props.FanMeeting, spriteBatch); break;
+                case Props.GoBabysit:   SoshiLandUIFunctions.DrawZoomInCornerBoxes(Props.GoBabysit, spriteBatch); break;
+                case Props.Babysit:     SoshiLandUIFunctions.DrawZoomInCornerBoxes(Props.Babysit, spriteBatch); break;
+                case Props.Go:          SoshiLandUIFunctions.DrawZoomInCornerBoxes(Props.Go, spriteBatch); break;
 
-                case Props.GizaPyramid:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 1, spriteBatch);
-                    break;
-                case Props.BigBen:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 2, spriteBatch);
-                    break;
-                case Props.Pisa:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 3, spriteBatch);
-                    break;
-                case Props.CommChest:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 4, spriteBatch);
-                    break;
-                case Props.BarrierReef:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 5, spriteBatch);
-                    break;
-                case Props.WencelsasSquare:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 6, spriteBatch);
-                    break;
-                case Props.BarcelonaAirport:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 7, spriteBatch);
-                    break;
-                case Props.MalibuBeach:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 8, spriteBatch);
-                    break;
-                case Props.SoshiBond:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 9, spriteBatch);
-                    break;
-                case Props.GoldenGateBridge:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 10, spriteBatch);
-                    break;
-                case Props.SydneyOpera:
-                    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 11, spriteBatch);
-                    break;
+                    // Top Row
+                case Props.LaScala:         SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 1, spriteBatch); break;
+                case Props.Bali:            SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 2, spriteBatch); break;
+                case Props.Chance1:         SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 3, spriteBatch); break;
+                case Props.TempleMount:     SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 4, spriteBatch); break;
+                case Props.DamnoenMarket:   SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 5, spriteBatch); break;
+                case Props.GreatWall:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 6, spriteBatch); break;
+                case Props.TajMahal:        SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 7, spriteBatch); break;
+                case Props.StatueLiberty:   SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 8, spriteBatch); break;
+                case Props.Forever9:        SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 9, spriteBatch); break;
+                case Props.EiffelTower:     SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 10, spriteBatch); break;
+                case Props.Parthenon:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 11, spriteBatch); break;
+
+                    // Left Column
+                case Props.GizaPyramid:     SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 1, spriteBatch); break;
+                case Props.BigBen:          SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 2, spriteBatch); break;
+                case Props.Pisa:            SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 3, spriteBatch); break;
+                case Props.CommChest:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 4, spriteBatch); break;
+                case Props.BarrierReef:     SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 5, spriteBatch); break;
+                case Props.WencelsasSquare: SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 6, spriteBatch); break;
+                case Props.BarcelonaAirport:SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 7, spriteBatch); break;
+                case Props.MalibuBeach:     SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 8, spriteBatch); break;
+                case Props.SoshiBond:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 9, spriteBatch); break;
+                case Props.GoldenGateBridge:SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 10, spriteBatch); break;
+                case Props.SydneyOpera:     SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 11, spriteBatch); break;
+
+                    // Right Column
+                case Props.WhiteHouse:      SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 1, spriteBatch); break;
+                case Props.GyeongBokGoong:  SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 2, spriteBatch); break;
+                case Props.MountEverest:    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 3, spriteBatch); break;
+                case Props.GrandCanal:      SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 5, spriteBatch); break;
+                case Props.VenetianResort:  SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 6, spriteBatch); break;
+                case Props.ChateauDeChillon:SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 7, spriteBatch); break;
+                case Props.TokyoDome:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 8, spriteBatch); break;
+                case Props.ShoppingSpree:   SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 9, spriteBatch); break;
+                case Props.Colosseum:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 10, spriteBatch); break;
+                case Props.BlueHouse:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 11, spriteBatch); break;
+
+                case Props.UNHQ:            SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 1, spriteBatch); break;
+                case Props.HongKong:        SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 2, spriteBatch); break;
+                case Props.AmazonRainforest:SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 3, spriteBatch); break;
+                case Props.Chance2:         SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 4, spriteBatch); break;
+                case Props.Disneyland:      SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 5, spriteBatch); break;
+                case Props.AngkorWat:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 6, spriteBatch); break;
+                case Props.LuxuryTax:       SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 7, spriteBatch); break;
+                case Props.WalkOfFame:      SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 8, spriteBatch); break;
+                case Props.KuwaitMuseum:    SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 9, spriteBatch); break;
+                case Props.CNTower:         SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 10, spriteBatch); break;
+                case Props.BukitTimah:      SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 11, spriteBatch); break;
                 default:
                     break;
             }
