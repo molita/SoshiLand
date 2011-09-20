@@ -343,11 +343,5 @@ namespace SoshiLandSilverlight
             
         }
 
-        // Return a Vector2 indicating the position to draw a property card (or a sprite in general).
-        private Vector2 makeTexturePos( Texture2D tex )
-        {
-            Vector2 v = new Vector2( mainFrame.Width / 2 - tex.Width / 2, mainFrame.Height / 2 - tex.Height / 2 );
-            return v;
-        }
     }
 }
