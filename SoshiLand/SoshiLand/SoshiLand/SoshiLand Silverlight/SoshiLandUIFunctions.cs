@@ -25,7 +25,7 @@ namespace SoshiLandSilverlight
         private static float ratioSideHeight = 840f / 7050f;
 
         // Numbers for UI
-        private static float zoomRatio = 0.4f;
+        private static float zoomRatio = Game1.preferredWindowWidth * 0.0003125f;
 
         private static int zoomWidth = (int)(470 * zoomRatio);
         private static int zoomHeight = (int)(800 * zoomRatio);
@@ -303,7 +303,10 @@ namespace SoshiLandSilverlight
                         (window_rightSideOfBoard - (window_cornerBox + window_blackBorder)) // The very left of Go
                         - ((window_oneSideBoxIncludingBorder) * temp) - (window_oneSideBoxIncludingBorder / 2),   // The middle of the box, lengthwise
                         Game1.preferredWindowHeight - (window_cornerBoxIncludingBorder / 2)   // The middle of the bottom row, heightwise
-                        );  
+                        );
+
+                    if (Game1.preferredWindowHeight < 720)
+                        centerBoardPositions[i].X  -= (temp * (0.9f * (1 - (Game1.preferredWindowHeight / 720))));
                 }
 
                 // Left Column
@@ -348,7 +351,6 @@ namespace SoshiLandSilverlight
                     centerBoardPositions[i] = new Vector2(window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2), (window_cornerBoxIncludingBorder / 2));
             }
 
-            Console.WriteLine("test");
         }
     }
 }
