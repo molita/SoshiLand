@@ -143,19 +143,6 @@ namespace SoshiLandSilverlight
             mainFrame = new Rectangle(
                 (preferredWindowWidth / 2) - (preferredWindowHeight / 2), 0, 
                 (int)(preferredWindowHeight*1.0f), (int)(preferredWindowHeight*1.0f));
-
-            // Load property cards.
-            propLaScala = Content.Load<Texture2D>( "assets\\prop_la_scala" );
-            propBali = Content.Load<Texture2D>( "assets\\prop_bali" );
-            propTempMount = Content.Load<Texture2D>( "assets\\prop_temp_mount" );
-            propDamnoenMart = Content.Load<Texture2D>( "assets\\prop_damnoen_mart" );
-            propGreatWall = Content.Load<Texture2D>( "assets\\prop_great_wall" );
-            propTajMahal = Content.Load<Texture2D>( "assets\\prop_taj_mahal" );
-            propStatLiberty = Content.Load<Texture2D>( "assets\\prop_stat_liberty" );
-            propEiffel = Content.Load<Texture2D>( "assets\\prop_eiffel" );
-            propParthenon = Content.Load<Texture2D>( "assets\\prop_parthenon" );
-            chance1 = Content.Load<Texture2D>( "assets\\chance1" );
-            forever9 = Content.Load<Texture2D>( "assets\\forever9" );
         }
 
         /// <summary>
@@ -193,39 +180,6 @@ namespace SoshiLandSilverlight
 
             drawId = SoshiLandUIFunctions.MouseCursorHoverForZoom(ms);
 
-            // Set drawId based on the mouse position when left-clicked. Commented out to develop new UI.
-            /*if ( ms.Y <= 84 )
-            {
-                if ( ms.X >= 324 )
-                {
-                    if ( ms.X <= 375 )
-                        drawId = Props.LaScala;
-                    else if ( ms.X <= 425 )
-                        drawId = Props.Bali;
-                    else if ( ms.X <= 474 )
-                        drawId = Props.Chance1;
-                    else if ( ms.X <= 525 )
-                        drawId = Props.TempleMount;
-                    else if ( ms.X <= 575 )
-                        drawId = Props.DamnoenMarket;
-                    else if ( ms.X <= 626 )
-                        drawId = Props.GreatWall;
-                    else if ( ms.X <= 677 )
-                        drawId = Props.TajMahal;
-                    else if ( ms.X <= 727 )
-                        drawId = Props.StatueLiberty;
-                    else if ( ms.X <= 778 )
-                        drawId = Props.Forever9;
-                    else if ( ms.X <= 827 )
-                        drawId = Props.EiffelTower;
-                    else if ( ms.X <= 876 )
-                        drawId = Props.Parthenon;
-                    else drawId = Props.None;
-                }
-                else drawId = Props.None;
-            }
-            else drawId = Props.None;
-            */
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
 

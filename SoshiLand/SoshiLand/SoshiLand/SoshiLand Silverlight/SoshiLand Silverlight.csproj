@@ -116,47 +116,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\Board2000x2000.png" />
+    <Content Include="Content\BoardPieces\Hyoyeon.png" />
+    <Content Include="Content\BoardPieces\Jessica.png" />
+    <Content Include="Content\BoardPieces\Seohyun.png" />
+    <Content Include="Content\BoardPieces\Sooyoung.png" />
+    <Content Include="Content\BoardPieces\Sunny.png" />
+    <Content Include="Content\BoardPieces\Taeyeon.png" />
+    <Content Include="Content\BoardPieces\Tiffany.png" />
+    <Content Include="Content\BoardPieces\Yoona.png" />
+    <Content Include="Content\BoardPieces\Yuri.png" />
     <Content Include="GameData\ChanceCards.xml" />
     <Content Include="GameData\CommunityChestCards.xml" />
-    <Content Include="Content\assets\chance1.jpg" />
     <Resource Include="Content\SpriteFont1-exenfont.png" />
     <Content Include="GameData\PropertyCards.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\forever9.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\main_board.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\main_screen_wide.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_bali.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_damnoen_mart.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_eiffel.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_great_wall.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_la_scala.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_parthenon.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_stat_liberty.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_taj_mahal.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\assets\prop_temp_mount.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\References\ExEnCore\ExEnCore Silverlight.csproj">
