@@ -53,15 +53,6 @@ namespace SoshiLandSilverlight
         SoshilandGame soshiLandGame;
         string[] playerStringArray;
 
-        // Test for Middle of Boxes
-        Texture2D testTexture;
-        Rectangle testRectangle;
-        int testCounter = 0;
-
-
-
-
-
         KeyboardState prevKeyboardState = Keyboard.GetState();
 
         Rectangle mainFrame;
@@ -82,13 +73,6 @@ namespace SoshiLandSilverlight
             base.Content.RootDirectory = "Content";
             Game1.Content = base.Content;
             IsMouseVisible = true;
-
-            // Preferred window size is 640x640
-            //graphics.PreferredBackBufferHeight = 640;
-            //graphics.PreferredBackBufferWidth = 640;
-
-            //graphics.PreferredBackBufferHeight = 480;
-            //graphics.PreferredBackBufferWidth = 640;
 
             // This is the resolution of the player's monitor
             windowWidth = Convert.ToInt16(HtmlPage.Window.Eval("screen.availWidth").ToString());
@@ -142,15 +126,6 @@ namespace SoshiLandSilverlight
             
             SoshiLandUIFunctions.CalculateBoardBoxCenterPositions();
 
-            // Test
-            
-            testTexture = Content.Load<Texture2D>("BoardPieces/Taeyeon");
-            /*
-            testRectangle = new Rectangle(
-                (int)SoshiLandUIFunctions.centerBoardPositions[0].X,
-                (int)SoshiLandUIFunctions.centerBoardPositions[0].Y,
-                30, 38);
-            */
         }
 
         /// <summary>
@@ -182,25 +157,7 @@ namespace SoshiLandSilverlight
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
 
-
-            
-            if (kbInput.IsKeyDown(Keys.H) && prevKeyboardState.IsKeyUp(Keys.H))
-            {
-                if (testCounter > 46)
-                    testCounter = 0;
-                else
-                    testCounter++;
-                testRectangle = new Rectangle(
-                    (int)SoshiLandUIFunctions.centerBoardPositions[testCounter].X,
-                    (int)SoshiLandUIFunctions.centerBoardPositions[testCounter].Y,
-                    30, 38);
-            }
-            
-
-
             prevKeyboardState = kbInput;
-
-            
 
             base.Update( gameTime );
         }
@@ -225,8 +182,7 @@ namespace SoshiLandSilverlight
                     spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, Color.White);
                 }
             }
-            spriteBatch.Draw(testTexture, testRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
-            
+
             // Draw a property card based on the current drawId
             #region Draw Zoom Box
             switch ( drawId )
