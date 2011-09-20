@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 namespace SoshiLandSilverlight
 {
     public class Player
@@ -16,6 +19,23 @@ namespace SoshiLandSilverlight
 
         private int actualAmountRemoved;           // If the player must pay another player an amount greater than what they own
         private int netWorth;                      // Player's net worth (Money + Buildings + printed prices of Mortgaged and Unmortgaged properties
+
+        // Board Piece Graphic Variables
+        private Texture2D boardPiece;
+        private Rectangle boardPieceRectangle;
+
+        private int boardPieceWidth;
+        private int boardPieceHeight;
+
+        public Texture2D getBoardPiece
+        {
+            get { return boardPiece; }
+        }
+
+        public Rectangle getBoardPieceRectangle
+        {
+            get { return boardPieceRectangle; }
+        }
 
         public byte FreeJailCards
         {
@@ -59,6 +79,32 @@ namespace SoshiLandSilverlight
         public int getMoney
         {
             get { return Money; }
+        }
+
+        public Player()
+        {
+            // Preset board pieces height and width
+            boardPieceHeight = 149;
+            boardPieceWidth = 117;
+
+            
+        }
+
+
+        public void PlayerChoosesBoardPiece(BoardPiece b)
+        {
+            switch (b)
+            {
+                case BoardPiece.ITNW_Taeyeon:   boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Taeyeon");  break;
+                case BoardPiece.ITNW_Jessica:   boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Jessica");  break;
+                case BoardPiece.ITNW_Sunny:     boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Sunny");    break;
+                case BoardPiece.ITNW_Tiffany:   boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Tiffany");  break;
+                case BoardPiece.ITNW_Hyoyeon:   boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Hyoyeon");  break;
+                case BoardPiece.ITNW_Yuri:      boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Yuri");     break;
+                case BoardPiece.ITNW_Sooyoung:  boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Sooyoung"); break;
+                case BoardPiece.ITNW_Yoona:     boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Yoona");    break;
+                case BoardPiece.ITNW_Seohyun:   boardPiece = Game1.Content.Load<Texture2D>("BoardPieces/Seohyun");  break;
+            }
         }
 
         public bool PurchaseProperty(PropertyTile property)

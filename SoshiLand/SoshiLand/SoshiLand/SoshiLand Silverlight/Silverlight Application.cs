@@ -58,6 +58,8 @@ namespace SoshiLandSilverlight
                     listOfPlayers[0] = "Taeyeon";
                     listOfPlayers[1] = "Tiffany";
 
+                    
+
                     var game = new Game1(listOfPlayers);     // Create a new instance of a SoshiLand game
                     //var game = new Game1(ChatRoom.chatroomListOfPlayers);     // Create a new instance of a SoshiLand game
 			        mPage.Children.Add(game);   // Add the game as a child of the Silverlight App

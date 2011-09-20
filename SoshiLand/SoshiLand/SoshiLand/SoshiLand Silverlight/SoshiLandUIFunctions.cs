@@ -15,6 +15,9 @@ namespace SoshiLandSilverlight
 {
     public static class SoshiLandUIFunctions
     {
+        // For storing the center (Vector 2) of each box on the board.
+        public static Vector2[] centerBoardPositions;
+
         // Ratios based on the 7050x7050 board
         private static float ratioBlackBorder = 20f / 7050f;
         private static float ratioCornerBoxes = 800f / 7050f;
@@ -28,12 +31,13 @@ namespace SoshiLandSilverlight
         private static int zoomHeight = (int)(800 * zoomRatio);
 
         // Relative to the window size
-        private static int window_leftSideOfBoard = ((Game1.preferredWindowWidth - (Game1.preferredWindowHeight)) / 2);
-        private static int window_rightSideOfBoard = window_leftSideOfBoard + Game1.preferredWindowHeight;
-        private static int window_oneSideBox = (int)(Game1.preferredWindowHeight * (ratioBlackBorder + ratioSideBoxes));
-        private static int window_oneSideBoxIncludingBorder = (int)(window_oneSideBox + (ratioBlackBorder * 2));
-        private static int window_cornerBox = (int)(Game1.preferredWindowHeight * (ratioCornerBoxes));
-        private static int window_cornerBoxIncludingBorder = (int)(window_cornerBox + (ratioBlackBorder * 2));
+        public static int window_leftSideOfBoard = ((Game1.preferredWindowWidth - (Game1.preferredWindowHeight)) / 2);
+        public static int window_rightSideOfBoard = window_leftSideOfBoard + Game1.preferredWindowHeight;
+        public static int window_oneSideBox = (int)(Game1.preferredWindowHeight * (ratioBlackBorder + ratioSideBoxes));
+        public static int window_oneSideBoxIncludingBorder = (int)(window_oneSideBox + (ratioBlackBorder * 2));
+        public static int window_cornerBox = (int)(Game1.preferredWindowHeight * (ratioCornerBoxes));
+        public static int window_cornerBoxIncludingBorder = (int)(window_cornerBox + (ratioBlackBorder * 2));
+        public static int window_blackBorder = (int)(Game1.preferredWindowHeight * ratioBlackBorder);
 
         // Relative to the original size
         private static int orig_startOfSideRow = (int)(Game1.backgroundHeight * (ratioBlackBorder + ratioCornerBoxes));
@@ -280,6 +284,71 @@ namespace SoshiLandSilverlight
                         Color.White, MathHelper.ToRadians(0), Vector2.Zero, SpriteEffects.None, 0f);
                     break;
             }
+        }
+
+        public static void CalculateBoardBoxCenterPositions()
+        {
+            centerBoardPositions = new Vector2[48];
+
+            for (int i = 0; i < centerBoardPositions.Length; i++)
+            {
+                // Locations excluding Corners
+
+             
+                // Bottom Row
+                if (i > 0 && i < 12)
+                {
+                    int temp = i - 1;
+                    centerBoardPositions[i] = new Vector2(
+                        (window_rightSideOfBoard - (window_cornerBox + window_blackBorder)) // The very left of Go
+                        - ((window_oneSideBoxIncludingBorder) * temp) - (window_oneSideBoxIncludingBorder / 2),   // The middle of the box, lengthwise
+                        Game1.preferredWindowHeight - (window_cornerBoxIncludingBorder / 2)   // The middle of the bottom row, heightwise
+                        );  
+                }
+
+                // Left Column
+                if (i > 12 && i < 24)
+                {
+                    int temp = i - 13;
+                    centerBoardPositions[i] = new Vector2(
+                        (window_leftSideOfBoard + (window_cornerBoxIncludingBorder / 2)), // The middle of the box, heightwise
+                        Game1.preferredWindowHeight - (window_cornerBox + window_blackBorder) - (temp * window_oneSideBoxIncludingBorder) - (window_oneSideBoxIncludingBorder / 2)); // Middle of the box, widthwise
+                }
+
+                // Top Row
+                if (i > 24 && i < 36)
+                {
+                    int temp = i - 24;
+                    centerBoardPositions[i] = new Vector2(
+                        (window_leftSideOfBoard + (window_cornerBox + window_blackBorder)) // The very right of Fan Meeting
+                        + ((window_oneSideBoxIncludingBorder) * temp) - (window_oneSideBoxIncludingBorder / 2),   // The middle of the box, lengthwise
+                        (window_cornerBoxIncludingBorder / 2)   // The middle of the bottom row, heightwise
+                        );
+                }
+
+                // Right Column
+                if (i > 36)
+                {
+                    int temp = i - 36;
+                    centerBoardPositions[i] = new Vector2(
+                        (window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2)), // The middle of the box, heightwise
+                        (window_cornerBox + window_blackBorder) + (temp * window_oneSideBoxIncludingBorder) - (window_oneSideBoxIncludingBorder / 2)); // Middle of the box, widthwise
+                }
+
+                // Corner Boxes
+
+                // Go
+                if (i == 0)
+                    centerBoardPositions[i] = new Vector2(window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2), Game1.preferredWindowHeight - (window_cornerBoxIncludingBorder / 2));
+                if (i == 12)
+                    centerBoardPositions[i] = new Vector2(window_leftSideOfBoard + (window_cornerBoxIncludingBorder / 2), Game1.preferredWindowHeight - (window_cornerBoxIncludingBorder / 2));
+                if (i == 24)
+                    centerBoardPositions[i] = new Vector2(window_leftSideOfBoard + (window_cornerBoxIncludingBorder / 2), (window_cornerBoxIncludingBorder / 2));
+                if (i == 36)
+                    centerBoardPositions[i] = new Vector2(window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2), (window_cornerBoxIncludingBorder / 2));
+            }
+
+            Console.WriteLine("test");
         }
     }
 }

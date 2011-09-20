@@ -53,6 +53,15 @@ namespace SoshiLandSilverlight
         SoshilandGame soshiLandGame;
         string[] playerStringArray;
 
+        // Test for Middle of Boxes
+        Texture2D testTexture;
+        Rectangle testRectangle;
+        int testCounter = 0;
+
+
+
+
+
         KeyboardState prevKeyboardState = Keyboard.GetState();
 
         Rectangle mainFrame;
@@ -63,19 +72,6 @@ namespace SoshiLandSilverlight
 
         // The background which is also the board.
         public static Texture2D background;
-
-        // Sprites of property cards.
-        Texture2D propLaScala;
-        Texture2D propBali;
-        Texture2D propTempMount;
-        Texture2D propDamnoenMart;
-        Texture2D propGreatWall;
-        Texture2D propTajMahal;
-        Texture2D propStatLiberty;
-        Texture2D propEiffel;
-        Texture2D propParthenon;
-        Texture2D chance1;
-        Texture2D forever9;
 
         // An integer that determines which property card to show. 0 means no card is selected.
         Props drawId = Props.None;
@@ -143,6 +139,18 @@ namespace SoshiLandSilverlight
             mainFrame = new Rectangle(
                 (preferredWindowWidth / 2) - (preferredWindowHeight / 2), 0, 
                 (int)(preferredWindowHeight*1.0f), (int)(preferredWindowHeight*1.0f));
+            
+            SoshiLandUIFunctions.CalculateBoardBoxCenterPositions();
+
+            // Test
+            
+            testTexture = Content.Load<Texture2D>("BoardPieces/Taeyeon");
+            /*
+            testRectangle = new Rectangle(
+                (int)SoshiLandUIFunctions.centerBoardPositions[0].X,
+                (int)SoshiLandUIFunctions.centerBoardPositions[0].Y,
+                30, 38);
+            */
         }
 
         /// <summary>
@@ -167,15 +175,6 @@ namespace SoshiLandSilverlight
 
             KeyboardState kbInput = Keyboard.GetState();
 
-            // Full screen function. Currently disabled.
-            //if ( kbInput.IsKeyDown( Keys.F11 ) && prevKeyboardState.IsKeyUp( Keys.F11 ) )
-            //{
-            //    graphics.ToggleFullScreen();
-            //    mainFrame.Height = GraphicsDevice.Viewport.Height;
-            //    mainFrame.Width = mainFrame.Height;
-            //    mainFrame.X = (GraphicsDevice.Viewport.Width - mainFrame.Width) / 2;
-            //}
-
             MouseState ms = Mouse.GetState();
 
             drawId = SoshiLandUIFunctions.MouseCursorHoverForZoom(ms);
@@ -183,8 +182,26 @@ namespace SoshiLandSilverlight
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
 
-            prevKeyboardState = kbInput;
+
             
+            if (kbInput.IsKeyDown(Keys.H) && prevKeyboardState.IsKeyUp(Keys.H))
+            {
+                if (testCounter > 46)
+                    testCounter = 0;
+                else
+                    testCounter++;
+                testRectangle = new Rectangle(
+                    (int)SoshiLandUIFunctions.centerBoardPositions[testCounter].X,
+                    (int)SoshiLandUIFunctions.centerBoardPositions[testCounter].Y,
+                    30, 38);
+            }
+            
+
+
+            prevKeyboardState = kbInput;
+
+            
+
             base.Update( gameTime );
         }
 
@@ -199,8 +216,19 @@ namespace SoshiLandSilverlight
             spriteBatch.Begin();
             
             spriteBatch.Draw( background, mainFrame, Color.White );
-
+            
+            // Draw Board Pieces
+            if (SoshilandGame.ListOfPlayers != null)
+            {
+                foreach (Player p in SoshilandGame.ListOfPlayers)
+                {
+                    spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, Color.White);
+                }
+            }
+            spriteBatch.Draw(testTexture, testRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
+            
             // Draw a property card based on the current drawId
+            #region Draw Zoom Box
             switch ( drawId )
             {
                     // Corner Items
@@ -298,7 +326,9 @@ namespace SoshiLandSilverlight
                 default:
                     break;
             }
+            #endregion
 
+            
             if (DEBUG)
             {
                 debugMessageQueue.PrintMessages(gameTime, spriteBatch);
@@ -306,7 +336,7 @@ namespace SoshiLandSilverlight
                 // Post player standings on right side
             }
 
-
+            
             spriteBatch.End();
 
             base.Draw( gameTime );

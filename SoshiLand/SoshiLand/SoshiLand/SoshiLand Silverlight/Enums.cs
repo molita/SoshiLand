@@ -85,4 +85,17 @@ namespace SoshiLandSilverlight
         ChatRoom,
         InGame
     }
+
+    public enum BoardPiece
+    {
+        ITNW_Taeyeon,
+        ITNW_Jessica,
+        ITNW_Sunny,
+        ITNW_Tiffany,
+        ITNW_Hyoyeon,
+        ITNW_Yuri,
+        ITNW_Sooyoung,
+        ITNW_Yoona,
+        ITNW_Seohyun
+    }
 }
