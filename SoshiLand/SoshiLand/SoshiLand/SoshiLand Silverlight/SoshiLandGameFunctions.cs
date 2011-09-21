@@ -11,11 +11,15 @@ namespace SoshiLandSilverlight
     {
         private static double animationInterval = 60;
         private static double animationGameTime;
-        private static float amountToJump = Game1.preferredWindowHeight * 0.05f;
+        private static float amountToJump = Game1.preferredWindowHeight * 0.1f;
         private static float amountToJumpInterval = amountToJump * 0.1f;
 
+        private static float amountToMove = SoshiLandUIFunctions.window_oneSideBoxIncludingBorder;
+        private static float amountToMoveInterval = amountToMove * 0.1f;
+
+        private static float animationTotalFrames = 10;
         private static float animationCounter = 10;
-        public static bool doneMoveAnimation = false;
+        public static bool doneMoveAnimation = true;
 
         public static void startNextPlayerTurn(List<Player> ListOfPlayers)
         {
@@ -240,13 +244,25 @@ namespace SoshiLandSilverlight
                 // Reset the gametime
                 animationGameTime = 0;  
                 // Move the location by an interval
-                p.SetBoardPieceRectangleLocation((int)(toPosition.X + ((toPosition.X - fromPosition.X) / animationCounter)), (int)(toPosition.Y + ((toPosition.Y - fromPosition.Y) / animationCounter)) + (int)amountToJumpInterval);
+                /*
+                if (animationCounter >= animationTotalFrames / 2)
+                    p.SetBoardPieceRectangleLocation((int)(toPosition.X + ((toPosition.X - fromPosition.X) / animationCounter)), (int)(toPosition.Y + ((toPosition.Y - fromPosition.Y) / animationCounter)) + (int)amountToJumpInterval);
+                else
+                    p.SetBoardPieceRectangleLocation((int)(toPosition.X + ((toPosition.X - fromPosition.X) / animationCounter)), (int)(toPosition.Y + ((toPosition.Y - fromPosition.Y) / animationCounter)) - (int)amountToJumpInterval);
+                */
+
+                if (animationCounter >= animationTotalFrames / 2)
+                    p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToMoveInterval), (int)(p.getBoardPieceRectangle.Y - amountToJumpInterval));
+                else
+                    p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToMoveInterval), (int)(p.getBoardPieceRectangle.Y + amountToJumpInterval));
                 animationCounter--;
             }
             // Check if animation is done
             if (animationCounter == 0)
             {
                 doneMoveAnimation = true;
+                animationCounter = 10;
+                p.SetBoardPieceRectangleLocation((int)toPosition.X, (int)toPosition.Y);
             }
         }
     }

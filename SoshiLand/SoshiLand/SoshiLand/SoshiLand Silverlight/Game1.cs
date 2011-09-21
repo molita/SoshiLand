@@ -52,6 +52,13 @@ namespace SoshiLandSilverlight
         // Test
         SoshilandGame soshiLandGame;
         string[] playerStringArray;
+        Player testPlayer = new Player();
+
+        Texture2D testTexture;
+        Rectangle testRectangle;
+        int testCounter = 0;
+
+
 
         KeyboardState prevKeyboardState = Keyboard.GetState();
 
@@ -126,6 +133,10 @@ namespace SoshiLandSilverlight
             
             SoshiLandUIFunctions.CalculateBoardBoxCenterPositions();
 
+            testTexture = Content.Load<Texture2D>("BoardPieces/Taeyeon");
+
+            testPlayer.PlayerChoosesBoardPiece(BoardPiece.ITNW_Tiffany);
+            testPlayer.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
         }
 
         /// <summary>
@@ -157,6 +168,25 @@ namespace SoshiLandSilverlight
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
 
+
+
+            if (kbInput.IsKeyDown(Keys.H) && prevKeyboardState.IsKeyUp(Keys.H) && SoshiLandGameFunctions.doneMoveAnimation)
+            {
+                if (testCounter > 46)
+                    testCounter = 0;
+                else
+                    testCounter++;
+
+                /*testRectangle = new Rectangle(
+                    (int)SoshiLandUIFunctions.centerBoardPositions[testCounter].X,
+                    (int)SoshiLandUIFunctions.centerBoardPositions[testCounter].Y,
+                    30, 38);*/
+
+                SoshiLandGameFunctions.doneMoveAnimation = false;
+            }
+            if (!SoshiLandGameFunctions.doneMoveAnimation)
+                SoshiLandGameFunctions.AnimateJumpNextBox(testPlayer, gameTime, SoshiLandUIFunctions.centerBoardPositions[testCounter-1], SoshiLandUIFunctions.centerBoardPositions[testCounter]);
+
             prevKeyboardState = kbInput;
 
             base.Update( gameTime );
@@ -182,7 +212,8 @@ namespace SoshiLandSilverlight
                     spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, Color.White);
                 }
             }
-
+            //spriteBatch.Draw(testTexture, testRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
+            spriteBatch.Draw(testPlayer.getBoardPiece, testPlayer.getBoardPieceRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
             // Draw a property card based on the current drawId
             #region Draw Zoom Box
             switch ( drawId )
