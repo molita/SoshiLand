@@ -3,10 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
+
 namespace SoshiLandSilverlight
 {
     public static class SoshiLandGameFunctions
     {
+        private static double animationInterval = 60;
+        private static double animationGameTime;
+        private static float amountToJump = Game1.preferredWindowHeight * 0.05f;
+        private static float amountToJumpInterval = amountToJump * 0.1f;
+
+        private static float animationCounter = 10;
+        public static bool doneMoveAnimation = false;
+
         public static void startNextPlayerTurn(List<Player> ListOfPlayers)
         {
             if (SoshilandGame.currentTurnsPlayers != null)
@@ -220,6 +230,24 @@ namespace SoshiLandSilverlight
             }
             else
                 Game1.debugMessageQueue.addMessageToQueue("Warning: Utility cannot be unmortgaged");
+        }
+
+        public static void AnimateJumpNextBox(Player p, GameTime gameTime, Vector2 fromPosition, Vector2 toPosition)
+        {
+            animationGameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (animationGameTime > animationInterval && animationCounter != 0 && !doneMoveAnimation)
+            {
+                // Reset the gametime
+                animationGameTime = 0;  
+                // Move the location by an interval
+                p.SetBoardPieceRectangleLocation((int)(toPosition.X + ((toPosition.X - fromPosition.X) / animationCounter)), (int)(toPosition.Y + ((toPosition.Y - fromPosition.Y) / animationCounter)) + (int)amountToJumpInterval);
+                animationCounter--;
+            }
+            // Check if animation is done
+            if (animationCounter == 0)
+            {
+                doneMoveAnimation = true;
+            }
         }
     }
 }

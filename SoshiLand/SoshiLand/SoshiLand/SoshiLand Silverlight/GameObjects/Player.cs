@@ -84,12 +84,16 @@ namespace SoshiLandSilverlight
         public Player()
         {
             // Preset board pieces height and width
-            boardPieceHeight = 149;
-            boardPieceWidth = 117;
+            boardPieceHeight = 30;
+            boardPieceWidth = 38;
 
             
         }
 
+        public void SetBoardPieceRectangleLocation(int x, int y)
+        {
+            boardPieceRectangle = new Rectangle(x, y, boardPieceWidth, boardPieceHeight);
+        }
 
         public void PlayerChoosesBoardPiece(BoardPiece b)
         {
