@@ -9,17 +9,24 @@ namespace SoshiLandSilverlight
 {
     public static class SoshiLandGameFunctions
     {
-        private static double animationInterval = 60;
+        private static double animationInterval = 16;
         private static double animationGameTime;
-        private static float amountToJump = Game1.preferredWindowHeight * 0.1f;
-        private static float amountToJumpInterval = amountToJump * 0.1f;
+        private static float amountToJump = Game1.preferredWindowHeight * 0.03f;
+        private static float amountToJumpInterval = amountToJump * 0.05f;
 
         private static float amountToMove = SoshiLandUIFunctions.window_oneSideBoxIncludingBorder;
-        private static float amountToMoveInterval = amountToMove * 0.1f;
+        private static float amountToMoveInterval = amountToMove * 0.05f;
+
+        private static bool amountToMoveSet = false;
 
         private static float animationTotalFrames = 10;
         private static float animationCounter = 10;
+        
+        
+        
         public static bool doneMoveAnimation = true;
+
+        private static RowLocation rowLocation;
 
         public static void startNextPlayerTurn(List<Player> ListOfPlayers)
         {
@@ -238,6 +245,47 @@ namespace SoshiLandSilverlight
 
         public static void AnimateJumpNextBox(Player p, GameTime gameTime, Vector2 fromPosition, Vector2 toPosition)
         {
+            
+            // Set the amount to move only once
+            if (!amountToMoveSet)
+            {
+                // Check if the X values are equal (this means the position is on the left or right columns)
+                if (fromPosition.X == toPosition.X)
+                {
+                    amountToMove = Math.Abs(fromPosition.Y - toPosition.Y);
+                    amountToMoveInterval = amountToMove * 0.1f;
+
+                    amountToJump = Game1.preferredWindowHeight * 0.03f;
+                    amountToJumpInterval = amountToJump * 0.05f;
+
+                    amountToJumpInterval = 0;
+
+                    // Set the top or bottom row
+                    if (fromPosition.X < Game1.preferredWindowWidth / 2)
+                        rowLocation = RowLocation.LeftColumn;   // Left Column
+                    else
+                        rowLocation = RowLocation.RightColumn;  // Right Column
+                }
+                    // Otherwise, the position is on the bottom or top rows
+                else
+                {
+                    amountToMove = Math.Abs(fromPosition.X - toPosition.X);
+                    amountToMoveInterval = amountToMove * 0.1f;
+
+                    amountToJump = Game1.preferredWindowHeight * 0.03f;
+                    amountToJumpInterval = amountToJump * 0.05f;
+
+                    // Set the left or right column
+                    if (fromPosition.Y < Game1.preferredWindowHeight / 2)
+                        rowLocation = RowLocation.TopRow;   // Left Column
+                    else
+                        rowLocation = RowLocation.BottomRow;  // Right Column
+                }
+
+                amountToMoveSet = true;
+
+            }
+
             animationGameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (animationGameTime > animationInterval && animationCounter != 0 && !doneMoveAnimation)
             {
@@ -250,16 +298,28 @@ namespace SoshiLandSilverlight
                 else
                     p.SetBoardPieceRectangleLocation((int)(toPosition.X + ((toPosition.X - fromPosition.X) / animationCounter)), (int)(toPosition.Y + ((toPosition.Y - fromPosition.Y) / animationCounter)) - (int)amountToJumpInterval);
                 */
-
-                if (animationCounter >= animationTotalFrames / 2)
-                    p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToMoveInterval), (int)(p.getBoardPieceRectangle.Y - amountToJumpInterval));
-                else
-                    p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToMoveInterval), (int)(p.getBoardPieceRectangle.Y + amountToJumpInterval));
+                switch (rowLocation)
+                {
+                    case RowLocation.BottomRow:
+                        if (animationCounter > (animationTotalFrames * 0.5f) + 1)
+                            p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToMoveInterval), (int)(p.getBoardPieceRectangle.Y - amountToJumpInterval));
+                        else
+                            p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToMoveInterval), (int)(p.getBoardPieceRectangle.Y + amountToJumpInterval));
+                        break;
+                    case RowLocation.LeftColumn:
+                        if (animationCounter > (animationTotalFrames * 0.5f) + 1)
+                            p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X + amountToJumpInterval), (int)(p.getBoardPieceRectangle.Y - amountToMoveInterval));
+                        else
+                            p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToJumpInterval), (int)(p.getBoardPieceRectangle.Y - amountToMoveInterval));
+                        break;
+                }
+                
                 animationCounter--;
             }
             // Check if animation is done
             if (animationCounter == 0)
             {
+                amountToMoveSet = false;
                 doneMoveAnimation = true;
                 animationCounter = 10;
                 p.SetBoardPieceRectangleLocation((int)toPosition.X, (int)toPosition.Y);

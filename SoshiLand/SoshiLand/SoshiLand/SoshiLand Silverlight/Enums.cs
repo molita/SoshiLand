@@ -98,4 +98,12 @@ namespace SoshiLandSilverlight
         ITNW_Yoona,
         ITNW_Seohyun
     }
+
+    public enum RowLocation
+    {
+        TopRow,
+        BottomRow,
+        LeftColumn,
+        RightColumn
+    }
 }

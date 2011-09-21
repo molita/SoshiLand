@@ -45,6 +45,29 @@ namespace SoshiLandSilverlight
         private static int orig_oneSideBoxIncludingBorder = (int)(Game1.backgroundHeight * ((ratioBlackBorder * 2) + ratioSideBoxes));
         private static int orig_cornerBoxIncludingBorder = (int)(Game1.backgroundHeight * ((ratioBlackBorder * 2) + ratioCornerBoxes));
 
+        public static void InitializeUIFunctions()
+        {
+            zoomRatio = Game1.preferredWindowWidth * 0.0003125f;
+
+            zoomWidth = (int)(470 * zoomRatio);
+            zoomHeight = (int)(800 * zoomRatio);
+
+            // Relative to the window size
+            window_leftSideOfBoard = ((Game1.preferredWindowWidth - (Game1.preferredWindowHeight)) / 2);
+            window_rightSideOfBoard = window_leftSideOfBoard + Game1.preferredWindowHeight;
+            window_oneSideBox = (int)(Game1.preferredWindowHeight * (ratioBlackBorder + ratioSideBoxes));
+            window_oneSideBoxIncludingBorder = (int)(window_oneSideBox + (ratioBlackBorder * 2));
+            window_cornerBox = (int)(Game1.preferredWindowHeight * (ratioCornerBoxes));
+            window_cornerBoxIncludingBorder = (int)(window_cornerBox + (ratioBlackBorder * 2));
+            window_blackBorder = (int)(Game1.preferredWindowHeight * ratioBlackBorder);
+
+            // Relative to the original size
+            orig_startOfSideRow = (int)(Game1.backgroundHeight * (ratioBlackBorder + ratioCornerBoxes));
+            orig_oneSideBox = (int)(Game1.backgroundHeight * (ratioBlackBorder + ratioSideBoxes));
+            orig_oneSideBoxIncludingBorder = (int)(Game1.backgroundHeight * ((ratioBlackBorder * 2) + ratioSideBoxes));
+            orig_cornerBoxIncludingBorder = (int)(Game1.backgroundHeight * ((ratioBlackBorder * 2) + ratioCornerBoxes));
+        }
+
         public static Props MouseCursorHoverForZoom(MouseState mouseState)
         {
             // Check if the mouse is within bounds of the top row

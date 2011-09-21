@@ -54,10 +54,9 @@ namespace SoshiLandSilverlight
         string[] playerStringArray;
         Player testPlayer = new Player();
 
-        Texture2D testTexture;
-        Rectangle testRectangle;
-        int testCounter = 0;
 
+        int testCounter = 0;
+        Texture2D testTexture;
 
 
         KeyboardState prevKeyboardState = Keyboard.GetState();
@@ -108,6 +107,7 @@ namespace SoshiLandSilverlight
                 debugMessageQueue = new DebugMessageQueue();
                 soshiLandGame = new SoshilandGame(playerStringArray);
             }
+
             base.Initialize();
 
         }
@@ -120,11 +120,13 @@ namespace SoshiLandSilverlight
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch( GraphicsDevice );
-            
+
             // Load the background which is also the board.
             background = base.Content.Load<Texture2D>("assets/Board2000x2000");
             backgroundHeight = background.Height;
             backgroundWidth = background.Width;
+
+            SoshiLandUIFunctions.InitializeUIFunctions();
 
             // Calculate size of rectangle based on browser height and width
             mainFrame = new Rectangle(
@@ -176,11 +178,6 @@ namespace SoshiLandSilverlight
                     testCounter = 0;
                 else
                     testCounter++;
-
-                /*testRectangle = new Rectangle(
-                    (int)SoshiLandUIFunctions.centerBoardPositions[testCounter].X,
-                    (int)SoshiLandUIFunctions.centerBoardPositions[testCounter].Y,
-                    30, 38);*/
 
                 SoshiLandGameFunctions.doneMoveAnimation = false;
             }
