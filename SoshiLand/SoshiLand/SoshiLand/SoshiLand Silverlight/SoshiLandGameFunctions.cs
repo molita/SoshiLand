@@ -312,6 +312,18 @@ namespace SoshiLandSilverlight
                         else
                             p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToJumpInterval), (int)(p.getBoardPieceRectangle.Y - amountToMoveInterval));
                         break;
+                    case RowLocation.TopRow:
+                        if (animationCounter > (animationTotalFrames * 0.5f) + 1)
+                            p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X + amountToMoveInterval), (int)(p.getBoardPieceRectangle.Y - amountToJumpInterval));
+                        else
+                            p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X + amountToMoveInterval), (int)(p.getBoardPieceRectangle.Y + amountToJumpInterval));
+                        break;
+                    case RowLocation.RightColumn:
+                        if (animationCounter > (animationTotalFrames * 0.5f) + 1)
+                            p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X - amountToJumpInterval), (int)(p.getBoardPieceRectangle.Y + amountToMoveInterval));
+                        else
+                            p.SetBoardPieceRectangleLocation((int)(p.getBoardPieceRectangle.X + amountToJumpInterval), (int)(p.getBoardPieceRectangle.Y + amountToMoveInterval));
+                        break;
                 }
                 
                 animationCounter--;

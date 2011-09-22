@@ -181,8 +181,11 @@ namespace SoshiLandSilverlight
 
                 SoshiLandGameFunctions.doneMoveAnimation = false;
             }
-            if (!SoshiLandGameFunctions.doneMoveAnimation)
-                SoshiLandGameFunctions.AnimateJumpNextBox(testPlayer, gameTime, SoshiLandUIFunctions.centerBoardPositions[testCounter-1], SoshiLandUIFunctions.centerBoardPositions[testCounter]);
+            if (!SoshiLandGameFunctions.doneMoveAnimation && testCounter == 0)
+                SoshiLandGameFunctions.AnimateJumpNextBox(testPlayer, gameTime, SoshiLandUIFunctions.centerBoardPositions[47], SoshiLandUIFunctions.centerBoardPositions[0]);
+            else if (!SoshiLandGameFunctions.doneMoveAnimation && testCounter != 0)
+            //if (!SoshiLandGameFunctions.doneMoveAnimation)
+                SoshiLandGameFunctions.AnimateJumpNextBox(testPlayer, gameTime, SoshiLandUIFunctions.centerBoardPositions[testCounter - 1], SoshiLandUIFunctions.centerBoardPositions[testCounter]);
 
             prevKeyboardState = kbInput;
 
