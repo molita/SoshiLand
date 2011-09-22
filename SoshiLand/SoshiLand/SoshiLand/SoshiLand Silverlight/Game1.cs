@@ -45,17 +45,17 @@ namespace SoshiLandSilverlight
         public static int backgroundWidth;
 
         // For debugging, since Silverlight doesn't seem to allow debugging within the IDE.
-        public static bool DEBUG = false;
+        public static bool DEBUG = true;
         public static string DEBUGMESSAGE = "Initial Debug Message";
         public static DebugMessageQueue debugMessageQueue;
 
         // Test
         SoshilandGame soshiLandGame;
         string[] playerStringArray;
-        Player testPlayer = new Player();
+        Player testPlayer = new Player("testPlayer");
 
 
-        int testCounter = 0;
+        int testCounter = 100;
         Texture2D testTexture;
 
 
@@ -104,6 +104,14 @@ namespace SoshiLandSilverlight
             // TODO: Add your initialization logic here
             if (playerStringArray != null)
             {
+                // Load the background which is also the board.
+                background = base.Content.Load<Texture2D>("assets/Board2000x2000");
+                backgroundHeight = background.Height;
+                backgroundWidth = background.Width;
+
+                SoshiLandUIFunctions.InitializeUIFunctions();
+                SoshiLandUIFunctions.CalculateBoardBoxCenterPositions();
+
                 debugMessageQueue = new DebugMessageQueue();
                 soshiLandGame = new SoshilandGame(playerStringArray);
             }
@@ -121,24 +129,20 @@ namespace SoshiLandSilverlight
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch( GraphicsDevice );
 
-            // Load the background which is also the board.
-            background = base.Content.Load<Texture2D>("assets/Board2000x2000");
-            backgroundHeight = background.Height;
-            backgroundWidth = background.Width;
-
-            SoshiLandUIFunctions.InitializeUIFunctions();
+            
 
             // Calculate size of rectangle based on browser height and width
             mainFrame = new Rectangle(
                 (preferredWindowWidth / 2) - (preferredWindowHeight / 2), 0, 
                 (int)(preferredWindowHeight*1.0f), (int)(preferredWindowHeight*1.0f));
             
-            SoshiLandUIFunctions.CalculateBoardBoxCenterPositions();
+            // Temporary to test board pieces
+            SoshilandGame.ListOfPlayers[0].PlayerChoosesBoardPiece(BoardPiece.ITNW_Tiffany);
+            SoshilandGame.ListOfPlayers[1].PlayerChoosesBoardPiece(BoardPiece.ITNW_Taeyeon);
 
-            testTexture = Content.Load<Texture2D>("BoardPieces/Taeyeon");
+            SoshilandGame.ListOfPlayers[0].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
+            SoshilandGame.ListOfPlayers[1].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
 
-            testPlayer.PlayerChoosesBoardPiece(BoardPiece.ITNW_Tiffany);
-            testPlayer.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
         }
 
         /// <summary>
@@ -171,7 +175,7 @@ namespace SoshiLandSilverlight
                 soshiLandGame.PlayerInputUpdate();
 
 
-
+            /*
             if (kbInput.IsKeyDown(Keys.H) && prevKeyboardState.IsKeyUp(Keys.H) && SoshiLandGameFunctions.doneMoveAnimation)
             {
                 if (testCounter > 46)
@@ -186,7 +190,26 @@ namespace SoshiLandSilverlight
             else if (!SoshiLandGameFunctions.doneMoveAnimation && testCounter != 0)
             //if (!SoshiLandGameFunctions.doneMoveAnimation)
                 SoshiLandGameFunctions.AnimateJumpNextBox(testPlayer, gameTime, SoshiLandUIFunctions.centerBoardPositions[testCounter - 1], SoshiLandUIFunctions.centerBoardPositions[testCounter]);
+            */
 
+            if (SoshiLandGameFunctions.animatingBoardPieceMovement && SoshiLandGameFunctions.doneMoveAnimation)
+            {
+                SoshiLandGameFunctions.doneMoveAnimation = false;
+                if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 47)
+                    SoshilandGame.currentTurnsPlayers.PreviousBoardPosition = 0;
+                else
+                    SoshilandGame.currentTurnsPlayers.PreviousBoardPosition++;
+                //testCounter--;
+            }
+            if (!SoshiLandGameFunctions.doneMoveAnimation)
+            {
+                if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 47)
+                    SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[47], SoshiLandUIFunctions.centerBoardPositions[0]);
+                else
+                    SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition], SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition + 1]);
+
+                
+            }
             prevKeyboardState = kbInput;
 
             base.Update( gameTime );
@@ -209,11 +232,14 @@ namespace SoshiLandSilverlight
             {
                 foreach (Player p in SoshilandGame.ListOfPlayers)
                 {
-                    spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, Color.White);
+                    //spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, Color.White);
+                    spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, new Rectangle(0, 0, p.getBoardPiece.Width, p.getBoardPiece.Height), Color.White, 0, new Vector2(p.getBoardPiece.Width / 2, p.getBoardPiece.Height / 2), SpriteEffects.None, 0);
                 }
             }
+            //if (SoshilandGame.ListOfPlayers[0] != null)
+            //    spriteBatch.Draw(SoshilandGame.ListOfPlayers[0].getBoardPiece, SoshilandGame.ListOfPlayers[0].getBoardPieceRectangle, new Rectangle(0, 0, SoshilandGame.ListOfPlayers[0].getBoardPiece.Width, SoshilandGame.ListOfPlayers[0].getBoardPiece.Height), Color.White, 0, new Vector2(SoshilandGame.ListOfPlayers[0].getBoardPiece.Width / 2, SoshilandGame.ListOfPlayers[0].getBoardPiece.Height / 2), SpriteEffects.None, 0);
             //spriteBatch.Draw(testTexture, testRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
-            spriteBatch.Draw(testPlayer.getBoardPiece, testPlayer.getBoardPieceRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
+            //spriteBatch.Draw(testPlayer.getBoardPiece, testPlayer.getBoardPieceRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
             // Draw a property card based on the current drawId
             #region Draw Zoom Box
             switch ( drawId )

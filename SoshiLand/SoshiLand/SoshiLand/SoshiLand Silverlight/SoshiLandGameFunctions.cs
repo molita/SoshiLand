@@ -21,10 +21,11 @@ namespace SoshiLandSilverlight
 
         private static float animationTotalFrames = 10;
         private static float animationCounter = 10;
-        
-        
+
+        private static int currentDesiredPlayerLocation;
         
         public static bool doneMoveAnimation = true;
+        public static bool animatingBoardPieceMovement = false;
 
         private static RowLocation rowLocation;
 
@@ -71,7 +72,10 @@ namespace SoshiLandSilverlight
         public static void MovePlayerDiceRoll(Player p, int roll)
         {
             int currentPosition = p.CurrentBoardPosition;
+            p.PreviousBoardPosition = currentPosition;
             int newPosition = currentPosition + roll;
+
+            currentDesiredPlayerLocation = newPosition;
 
             // If player passes or lands on Go
             if (newPosition > 47)
@@ -81,6 +85,7 @@ namespace SoshiLandSilverlight
             }
             // Move player to the new position
             SoshiLandGameFunctions.MovePlayer(p, newPosition);
+            animatingBoardPieceMovement = true;
         }
 
         public static void RollDice(Player p)
@@ -336,6 +341,16 @@ namespace SoshiLandSilverlight
                 animationCounter = 10;
                 p.SetBoardPieceRectangleLocation((int)toPosition.X, (int)toPosition.Y);
             }
+
+            // Check when animation has reached the desired location
+            CheckIfPlayerReachesDesiredLocation(p, toPosition);
+        }
+
+        private static void CheckIfPlayerReachesDesiredLocation(Player p, Vector2 toPosition)
+        {
+            if (p.getBoardPieceRectangle.X == SoshiLandUIFunctions.centerBoardPositions[p.CurrentBoardPosition].X &&
+                p.getBoardPieceRectangle.Y == SoshiLandUIFunctions.centerBoardPositions[p.CurrentBoardPosition].Y)
+                animatingBoardPieceMovement = false;
         }
     }
 }

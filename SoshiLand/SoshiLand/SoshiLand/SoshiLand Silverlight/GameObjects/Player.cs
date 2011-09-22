@@ -15,6 +15,7 @@ namespace SoshiLandSilverlight
         private bool Jail = false;                  // boolean for when player is in Jail or not
         private int numberOfTurnsInJail = 0;        // Keep track of how many turns Player has been in jail
         private int currentPositionOnBoard;         // Player's position on the board in the Tiles[] array (index 0)
+        private int previousPositionOnBoard;        // This is used for the animation function
         private byte numberOfFreeJailCards = 0;     // Number of Get Out of Jail Free cards player has
 
         private int actualAmountRemoved;           // If the player must pay another player an amount greater than what they own
@@ -60,6 +61,12 @@ namespace SoshiLandSilverlight
             get { return numberOfTurnsInJail; }
         }
 
+        public int PreviousBoardPosition
+        {
+            set { previousPositionOnBoard = value; }
+            get { return previousPositionOnBoard; }
+        }
+
         public int CurrentBoardPosition
         {
             set { currentPositionOnBoard = value; }
@@ -71,23 +78,18 @@ namespace SoshiLandSilverlight
             get { return Name; }
         }
 
+        // Constructor
         public Player(string n)
         {
             Name = n;
+            // Preset board pieces height and width
+            boardPieceHeight = 30;
+            boardPieceWidth = 38;
         }
 
         public int getMoney
         {
             get { return Money; }
-        }
-
-        public Player()
-        {
-            // Preset board pieces height and width
-            boardPieceHeight = 30;
-            boardPieceWidth = 38;
-
-            
         }
 
         public void SetBoardPieceRectangleLocation(int x, int y)

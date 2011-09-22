@@ -322,7 +322,7 @@ namespace SoshiLandSilverlight
             communityChestCards.ShuffleDeck();
         }
 
-        public void DeterminePlayerOrder(Player[] arrayOfPlayers, ref List<Player> ListOfPlayers)
+        public void DeterminePlayerOrder(Player[] arrayOfPlayers)
         {
             // Note!
             // arrayOfPlayers is the order the players are sitting in around the board.
@@ -365,7 +365,7 @@ namespace SoshiLandSilverlight
             }
 
             // Initialize the list of players
-            ListOfPlayers = new List<Player>();
+            SoshilandGame.ListOfPlayers = new List<Player>();
 
             // Check if there is a tie with highest rolls
             if (tiedPlayers.Count > 0)
@@ -415,34 +415,32 @@ namespace SoshiLandSilverlight
                 }
 
                 // Should be one clear winner now
-                ListOfPlayers.Add(secondRoundOfTied[0]);
+                SoshilandGame.ListOfPlayers.Add(secondRoundOfTied[0]);
             }
 
-            if (ListOfPlayers.Count == 0)
-                ListOfPlayers.Add(arrayOfPlayers[currentHighestPlayer]);
+            if (SoshilandGame.ListOfPlayers.Count == 0)
+                SoshilandGame.ListOfPlayers.Add(arrayOfPlayers[currentHighestPlayer]);
 
             int firstPlayer = 0;
             // Search for the first player in the player array
-            while (arrayOfPlayers[firstPlayer] != ListOfPlayers[0])
+            while (arrayOfPlayers[firstPlayer] != SoshilandGame.ListOfPlayers[0])
                 firstPlayer++;
 
             // Populate the players in clockwise order
             for (int a = firstPlayer + 1; a < arrayOfPlayers.Length; a++)
-                ListOfPlayers.Add(arrayOfPlayers[a]);
+                SoshilandGame.ListOfPlayers.Add(arrayOfPlayers[a]);
             if (firstPlayer != 0)
             {
                 for (int b = 0; b < firstPlayer; b++)
-                    ListOfPlayers.Add(arrayOfPlayers[b]);
+                    SoshilandGame.ListOfPlayers.Add(arrayOfPlayers[b]);
             }
 
 
             if (Game1.DEBUG)
             {
                 Game1.debugMessageQueue.addMessageToQueue("Player Order Determined! ");
-                for (int i = 1; i < ListOfPlayers.Count + 1; i++)
-                    Game1.debugMessageQueue.addMessageToQueue(i + ": " + ListOfPlayers[i - 1].getName);
-
-
+                for (int i = 1; i < SoshilandGame.ListOfPlayers.Count + 1; i++)
+                    Game1.debugMessageQueue.addMessageToQueue(i + ": " + SoshilandGame.ListOfPlayers[i - 1].getName);
             }
         }
 

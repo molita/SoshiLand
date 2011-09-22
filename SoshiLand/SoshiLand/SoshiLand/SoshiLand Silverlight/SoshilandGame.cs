@@ -84,15 +84,9 @@ namespace SoshiLandSilverlight
                 playerArray[i] = new Player(players[i]);
             }
 
-            // Temporary to test board pieces
-            playerArray[0].PlayerChoosesBoardPiece(BoardPiece.ITNW_Taeyeon);
-            playerArray[1].PlayerChoosesBoardPiece(BoardPiece.ITNW_Tiffany);
-
-
-
-            gameInitialization.DeterminePlayerOrder(playerArray, ref ListOfPlayers);        // Determine order of players
+            gameInitialization.DeterminePlayerOrder(playerArray);        // Determine order of players
             // Players choose pieces (this can be implemented later)
-
+            
 
             gameInitialization.DistributeStartingMoney(ListOfPlayers);                      // Players are given starting money
             gameInitialization.PlaceAllPiecesOnGo(ListOfPlayers);                           // Place all Pieces on Go
