@@ -26,6 +26,7 @@ namespace SoshiLandSilverlight
         
         public static bool doneMoveAnimation = true;
         public static bool animatingBoardPieceMovement = false;
+        public static bool firstMovement = false;
 
         private static RowLocation rowLocation;
 
@@ -350,7 +351,10 @@ namespace SoshiLandSilverlight
         {
             if (p.getBoardPieceRectangle.X == SoshiLandUIFunctions.centerBoardPositions[p.CurrentBoardPosition].X &&
                 p.getBoardPieceRectangle.Y == SoshiLandUIFunctions.centerBoardPositions[p.CurrentBoardPosition].Y)
+            {
                 animatingBoardPieceMovement = false;
+                firstMovement = false;
+            }
         }
     }
 }

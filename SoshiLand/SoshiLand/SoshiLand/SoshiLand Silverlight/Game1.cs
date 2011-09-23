@@ -191,25 +191,30 @@ namespace SoshiLandSilverlight
             //if (!SoshiLandGameFunctions.doneMoveAnimation)
                 SoshiLandGameFunctions.AnimateJumpNextBox(testPlayer, gameTime, SoshiLandUIFunctions.centerBoardPositions[testCounter - 1], SoshiLandUIFunctions.centerBoardPositions[testCounter]);
             */
-
             if (SoshiLandGameFunctions.animatingBoardPieceMovement && SoshiLandGameFunctions.doneMoveAnimation)
             {
                 SoshiLandGameFunctions.doneMoveAnimation = false;
-                if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 47)
-                    SoshilandGame.currentTurnsPlayers.PreviousBoardPosition = 0;
+
+                if (SoshiLandGameFunctions.firstMovement)
+                {
+                    if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 48)
+                        SoshilandGame.currentTurnsPlayers.PreviousBoardPosition = 0;
+                    else
+                        SoshilandGame.currentTurnsPlayers.PreviousBoardPosition++;
+                }
                 else
-                    SoshilandGame.currentTurnsPlayers.PreviousBoardPosition++;
-                //testCounter--;
+                    SoshiLandGameFunctions.firstMovement = true;
             }
+
             if (!SoshiLandGameFunctions.doneMoveAnimation)
             {
                 if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 47)
                     SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[47], SoshiLandUIFunctions.centerBoardPositions[0]);
                 else
                     SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition], SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition + 1]);
-
-                
             }
+
+            
             prevKeyboardState = kbInput;
 
             base.Update( gameTime );
