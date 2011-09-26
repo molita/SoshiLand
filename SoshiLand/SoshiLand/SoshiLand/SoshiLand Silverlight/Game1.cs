@@ -174,23 +174,6 @@ namespace SoshiLandSilverlight
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
 
-
-            /*
-            if (kbInput.IsKeyDown(Keys.H) && prevKeyboardState.IsKeyUp(Keys.H) && SoshiLandGameFunctions.doneMoveAnimation)
-            {
-                if (testCounter > 46)
-                    testCounter = 0;
-                else
-                    testCounter++;
-
-                SoshiLandGameFunctions.doneMoveAnimation = false;
-            }
-            if (!SoshiLandGameFunctions.doneMoveAnimation && testCounter == 0)
-                SoshiLandGameFunctions.AnimateJumpNextBox(testPlayer, gameTime, SoshiLandUIFunctions.centerBoardPositions[47], SoshiLandUIFunctions.centerBoardPositions[0]);
-            else if (!SoshiLandGameFunctions.doneMoveAnimation && testCounter != 0)
-            //if (!SoshiLandGameFunctions.doneMoveAnimation)
-                SoshiLandGameFunctions.AnimateJumpNextBox(testPlayer, gameTime, SoshiLandUIFunctions.centerBoardPositions[testCounter - 1], SoshiLandUIFunctions.centerBoardPositions[testCounter]);
-            */
             if (SoshiLandGameFunctions.animatingBoardPieceMovement && SoshiLandGameFunctions.doneMoveAnimation)
             {
                 SoshiLandGameFunctions.doneMoveAnimation = false;
@@ -201,6 +184,8 @@ namespace SoshiLandSilverlight
                         SoshilandGame.currentTurnsPlayers.PreviousBoardPosition = 0;
                     else
                         SoshilandGame.currentTurnsPlayers.PreviousBoardPosition++;
+
+                    SoshiLandGameFunctions.currentPlayerAnimationMovementLocation = SoshilandGame.currentTurnsPlayers.PreviousBoardPosition;
                 }
                 else
                     SoshiLandGameFunctions.firstMovement = true;
@@ -210,6 +195,8 @@ namespace SoshiLandSilverlight
             {
                 if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 47)
                     SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[47], SoshiLandUIFunctions.centerBoardPositions[0]);
+                else if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 48)
+                    SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[0], SoshiLandUIFunctions.centerBoardPositions[1]);
                 else
                     SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition], SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition + 1]);
             }

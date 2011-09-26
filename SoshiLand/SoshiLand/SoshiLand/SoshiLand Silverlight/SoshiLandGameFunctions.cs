@@ -13,6 +13,7 @@ namespace SoshiLandSilverlight
         private static double animationGameTime;
         private static float amountToJump = Game1.preferredWindowHeight * 0.03f;
         private static float amountToJumpInterval = amountToJump * 0.05f;
+        public static float currentPlayerAnimationMovementLocation;
 
         private static float amountToMove = SoshiLandUIFunctions.window_oneSideBoxIncludingBorder;
         private static float amountToMoveInterval = amountToMove * 0.05f;
@@ -290,6 +291,11 @@ namespace SoshiLandSilverlight
 
                 amountToMoveSet = true;
 
+                if (currentPlayerAnimationMovementLocation == 47)
+                    currentPlayerAnimationMovementLocation = 0;
+                else
+                    currentPlayerAnimationMovementLocation++;
+
             }
 
             animationGameTime += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -333,6 +339,7 @@ namespace SoshiLandSilverlight
                 }
                 
                 animationCounter--;
+                
             }
             // Check if animation is done
             if (animationCounter == 0)
@@ -348,12 +355,21 @@ namespace SoshiLandSilverlight
         }
 
         private static void CheckIfPlayerReachesDesiredLocation(Player p, Vector2 toPosition)
-        {
+        { 
+            /*
             if (p.getBoardPieceRectangle.X == SoshiLandUIFunctions.centerBoardPositions[p.CurrentBoardPosition].X &&
                 p.getBoardPieceRectangle.Y == SoshiLandUIFunctions.centerBoardPositions[p.CurrentBoardPosition].Y)
             {
                 animatingBoardPieceMovement = false;
                 firstMovement = false;
+            }
+            */
+
+            if (p.CurrentBoardPosition == currentPlayerAnimationMovementLocation)
+            {
+                animatingBoardPieceMovement = false;
+                firstMovement = false;
+                currentPlayerAnimationMovementLocation = 0;
             }
         }
     }
