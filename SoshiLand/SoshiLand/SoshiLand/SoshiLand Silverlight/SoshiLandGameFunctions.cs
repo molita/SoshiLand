@@ -304,12 +304,6 @@ namespace SoshiLandSilverlight
                 // Reset the gametime
                 animationGameTime = 0;  
                 // Move the location by an interval
-                /*
-                if (animationCounter >= animationTotalFrames / 2)
-                    p.SetBoardPieceRectangleLocation((int)(toPosition.X + ((toPosition.X - fromPosition.X) / animationCounter)), (int)(toPosition.Y + ((toPosition.Y - fromPosition.Y) / animationCounter)) + (int)amountToJumpInterval);
-                else
-                    p.SetBoardPieceRectangleLocation((int)(toPosition.X + ((toPosition.X - fromPosition.X) / animationCounter)), (int)(toPosition.Y + ((toPosition.Y - fromPosition.Y) / animationCounter)) - (int)amountToJumpInterval);
-                */
                 switch (rowLocation)
                 {
                     case RowLocation.BottomRow:
@@ -356,15 +350,6 @@ namespace SoshiLandSilverlight
 
         private static void CheckIfPlayerReachesDesiredLocation(Player p, Vector2 toPosition)
         { 
-            /*
-            if (p.getBoardPieceRectangle.X == SoshiLandUIFunctions.centerBoardPositions[p.CurrentBoardPosition].X &&
-                p.getBoardPieceRectangle.Y == SoshiLandUIFunctions.centerBoardPositions[p.CurrentBoardPosition].Y)
-            {
-                animatingBoardPieceMovement = false;
-                firstMovement = false;
-            }
-            */
-
             if (p.CurrentBoardPosition == currentPlayerAnimationMovementLocation)
             {
                 animatingBoardPieceMovement = false;

@@ -129,8 +129,6 @@ namespace SoshiLandSilverlight
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch( GraphicsDevice );
 
-            
-
             // Calculate size of rectangle based on browser height and width
             mainFrame = new Rectangle(
                 (preferredWindowWidth / 2) - (preferredWindowHeight / 2), 0, 
@@ -193,10 +191,11 @@ namespace SoshiLandSilverlight
 
             if (!SoshiLandGameFunctions.doneMoveAnimation)
             {
+                if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 48)
+                    SoshilandGame.currentTurnsPlayers.PreviousBoardPosition = 0;
+
                 if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 47)
                     SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[47], SoshiLandUIFunctions.centerBoardPositions[0]);
-                else if (SoshilandGame.currentTurnsPlayers.PreviousBoardPosition == 48)
-                    SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[0], SoshiLandUIFunctions.centerBoardPositions[1]);
                 else
                     SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition], SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition + 1]);
             }
