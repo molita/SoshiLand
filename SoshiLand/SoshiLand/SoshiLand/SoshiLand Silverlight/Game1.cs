@@ -228,10 +228,7 @@ namespace SoshiLandSilverlight
                     spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, new Rectangle(0, 0, p.getBoardPiece.Width, p.getBoardPiece.Height), Color.White, 0, new Vector2(p.getBoardPiece.Width / 2, p.getBoardPiece.Height / 2), SpriteEffects.None, 0);
                 }
             }
-            //if (SoshilandGame.ListOfPlayers[0] != null)
-            //    spriteBatch.Draw(SoshilandGame.ListOfPlayers[0].getBoardPiece, SoshilandGame.ListOfPlayers[0].getBoardPieceRectangle, new Rectangle(0, 0, SoshilandGame.ListOfPlayers[0].getBoardPiece.Width, SoshilandGame.ListOfPlayers[0].getBoardPiece.Height), Color.White, 0, new Vector2(SoshilandGame.ListOfPlayers[0].getBoardPiece.Width / 2, SoshilandGame.ListOfPlayers[0].getBoardPiece.Height / 2), SpriteEffects.None, 0);
-            //spriteBatch.Draw(testTexture, testRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
-            //spriteBatch.Draw(testPlayer.getBoardPiece, testPlayer.getBoardPieceRectangle, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White, 0, new Vector2(testTexture.Width / 2, testTexture.Height / 2), SpriteEffects.None, 0);
+            
             // Draw a property card based on the current drawId
             #region Draw Zoom Box
             switch ( drawId )

@@ -17,6 +17,9 @@ namespace SoshiLandSilverlight
             {
                 // Starting money is $1500
                 p.BankPaysPlayer(1500);
+
+                // Adding more money for testing purposes
+                p.BankPaysPlayer(1500);
             }
         }
 
