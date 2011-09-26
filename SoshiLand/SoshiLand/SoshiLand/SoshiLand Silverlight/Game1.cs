@@ -45,7 +45,7 @@ namespace SoshiLandSilverlight
         public static int backgroundWidth;
 
         // For debugging, since Silverlight doesn't seem to allow debugging within the IDE.
-        public static bool DEBUG = true;
+        public static bool DEBUG = false;
         public static string DEBUGMESSAGE = "Initial Debug Message";
         public static DebugMessageQueue debugMessageQueue;
 
@@ -58,6 +58,7 @@ namespace SoshiLandSilverlight
         int testCounter = 100;
         Texture2D testTexture;
 
+        Button button_RollDice;
 
         KeyboardState prevKeyboardState = Keyboard.GetState();
 
@@ -141,6 +142,12 @@ namespace SoshiLandSilverlight
             SoshilandGame.ListOfPlayers[0].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
             SoshilandGame.ListOfPlayers[1].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
 
+            Texture2D rollPressed = Content.Load<Texture2D>("Buttons/Button_RollDicePressed");
+            Texture2D rollUnPressed = Content.Load<Texture2D>("Buttons/Button_RollDiceNotPressed");
+            Rectangle rollRectangle = new Rectangle(30, 200, rollPressed.Width / 2, rollPressed.Height / 2); 
+
+            button_RollDice = new Button("Roll", rollPressed, rollUnPressed, rollRectangle);
+
         }
 
         /// <summary>
@@ -167,7 +174,13 @@ namespace SoshiLandSilverlight
 
             MouseState ms = Mouse.GetState();
 
+            // For detecting the mouseover for the tiles zoom in
             drawId = SoshiLandUIFunctions.MouseCursorHoverForZoom(ms);
+
+            if (ms.LeftButton == ButtonState.Pressed)
+                button_RollDice.PressButton();
+            else
+                button_RollDice.UnPressButton();
 
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
@@ -216,13 +229,13 @@ namespace SoshiLandSilverlight
             spriteBatch.Begin();
             
             spriteBatch.Draw( background, mainFrame, Color.White );
-            
+            button_RollDice.Draw(spriteBatch);
+
             // Draw Board Pieces
             if (SoshilandGame.ListOfPlayers != null)
             {
                 foreach (Player p in SoshilandGame.ListOfPlayers)
                 {
-                    //spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, Color.White);
                     spriteBatch.Draw(p.getBoardPiece, p.getBoardPieceRectangle, new Rectangle(0, 0, p.getBoardPiece.Width, p.getBoardPiece.Height), Color.White, 0, new Vector2(p.getBoardPiece.Width / 2, p.getBoardPiece.Height / 2), SpriteEffects.None, 0);
                 }
             }

@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameData\JSON\PlayerJson.cs" />
+    <Compile Include="GameObjects\Button.cs" />
     <Compile Include="GameObjects\Card.cs" />
     <Compile Include="DebugMessageQueue.cs" />
     <Compile Include="Enums.cs" />
@@ -125,6 +126,14 @@
     <Content Include="Content\BoardPieces\Tiffany.png" />
     <Content Include="Content\BoardPieces\Yoona.png" />
     <Content Include="Content\BoardPieces\Yuri.png" />
+    <Content Include="Content\Buttons\Button_RollDiceNotPressed.png" />
+    <Content Include="Content\Buttons\Button_RollDicePressed.png" />
+    <Content Include="Content\Dice\Dice1.png" />
+    <Content Include="Content\Dice\Dice2.png" />
+    <Content Include="Content\Dice\Dice3.png" />
+    <Content Include="Content\Dice\Dice4.png" />
+    <Content Include="Content\Dice\Dice5.png" />
+    <Content Include="Content\Dice\Dice6.png" />
     <Content Include="GameData\ChanceCards.xml" />
     <Content Include="GameData\CommunityChestCards.xml" />
     <Resource Include="Content\SpriteFont1-exenfont.png" />
