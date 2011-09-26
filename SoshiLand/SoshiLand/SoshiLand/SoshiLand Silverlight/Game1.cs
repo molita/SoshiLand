@@ -200,7 +200,6 @@ namespace SoshiLandSilverlight
                     SoshiLandGameFunctions.AnimateJumpNextBox(SoshilandGame.currentTurnsPlayers, gameTime, SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition], SoshiLandUIFunctions.centerBoardPositions[SoshilandGame.currentTurnsPlayers.PreviousBoardPosition + 1]);
             }
 
-            
             prevKeyboardState = kbInput;
 
             base.Update( gameTime );

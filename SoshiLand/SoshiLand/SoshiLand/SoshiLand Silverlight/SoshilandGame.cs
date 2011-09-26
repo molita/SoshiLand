@@ -290,13 +290,21 @@ namespace SoshiLandSilverlight
                         if (kbInput.IsKeyDown(Keys.R) && previousKeyboardInput.IsKeyUp(Keys.R))
                         {
                             SoshiLandGameFunctions.RollDice(currentTurnsPlayers);              // Rolls Dice and Move Piece to Tile
-                            turnPhase = 1;                              // Set next phase
-                            PlayerOptions(currentTurnsPlayers);         // Calculate options for player
+                            turnPhase = 4;                              // Set next phase
+                            
                             
                         }
                     }
                     break;
-
+                // Animation Phase
+                case 4:
+                    // Check when animation is done
+                    if (!SoshiLandGameFunctions.animatingBoardPieceMovement && SoshiLandGameFunctions.doneMoveAnimation)
+                    {
+                        turnPhase = 1;                              // Set next phase
+                        PlayerOptions(currentTurnsPlayers);         // Calculate options for player
+                    }
+                    break;
                     // Roll Phase
                 case 1:
                     if (optionsCalculated)
