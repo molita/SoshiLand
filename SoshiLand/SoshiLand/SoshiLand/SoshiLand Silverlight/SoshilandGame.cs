@@ -227,8 +227,10 @@ namespace SoshiLandSilverlight
                         }
 
                         // Player decides to roll for doubles
-                        if (kbInput.IsKeyDown(Keys.R) && previousKeyboardInput.IsKeyUp(Keys.R))
+                        //if (kbInput.IsKeyDown(Keys.R) && previousKeyboardInput.IsKeyUp(Keys.R))
+                        if (Game1.button_RollDice.buttonTriggered)
                         {
+                            Game1.button_RollDice.buttonTriggered = false;
                             // Roll Dice
                             SoshiLandGameFunctions.RollDice(currentTurnsPlayers);
 
@@ -287,8 +289,10 @@ namespace SoshiLandSilverlight
                     else
                     {
                         // Roll Dice
-                        if (kbInput.IsKeyDown(Keys.R) && previousKeyboardInput.IsKeyUp(Keys.R))
+                        //if (kbInput.IsKeyDown(Keys.R) && previousKeyboardInput.IsKeyUp(Keys.R))
+                        if (Game1.button_RollDice.buttonTriggered)
                         {
+                            Game1.button_RollDice.buttonTriggered = false;
                             SoshiLandGameFunctions.RollDice(currentTurnsPlayers);               // Rolls Dice and Move Piece to Tile
                             turnPhase = 4;                                                      // Set next phase
                         }

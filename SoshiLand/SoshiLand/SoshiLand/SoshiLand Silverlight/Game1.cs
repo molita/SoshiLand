@@ -58,7 +58,7 @@ namespace SoshiLandSilverlight
         int testCounter = 100;
         Texture2D testTexture;
 
-        Button button_RollDice;
+        public static Button button_RollDice;
 
         KeyboardState prevKeyboardState = Keyboard.GetState();
 
@@ -177,10 +177,8 @@ namespace SoshiLandSilverlight
             // For detecting the mouseover for the tiles zoom in
             drawId = SoshiLandUIFunctions.MouseCursorHoverForZoom(ms);
 
-            if (ms.LeftButton == ButtonState.Pressed)
-                button_RollDice.PressButton();
-            else
-                button_RollDice.UnPressButton();
+            // Buttons
+            button_RollDice.ButtonClickUpdate(ms);
 
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
