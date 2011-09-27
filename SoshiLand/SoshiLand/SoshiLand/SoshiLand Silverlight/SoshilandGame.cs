@@ -216,6 +216,10 @@ namespace SoshiLandSilverlight
             {
                 // Pre Roll Phase
                 case 0:
+                    // Enable/disable buttons
+                    Game1.button_RollDice.buttonActive = true;
+                    Game1.button_EndTurn.buttonActive = false;
+
                     // Check if player is in jail
                     if (currentTurnsPlayers.inJail)
                     {
@@ -298,8 +302,12 @@ namespace SoshiLandSilverlight
                         }
                     }
                     break;
-                // Animation Phase
+
+                // Piece movement Animation Phase
                 case 4:
+                    // Enable/disable buttons
+                    Game1.button_RollDice.buttonActive = false;
+                    Game1.button_EndTurn.buttonActive = false;
                     // Check when animation is done
                     if (!SoshiLandGameFunctions.animatingBoardPieceMovement && SoshiLandGameFunctions.doneMoveAnimation)
                     {
@@ -309,6 +317,9 @@ namespace SoshiLandSilverlight
                     break;
                     // Roll Phase
                 case 1:
+                    // Enable/disable buttons
+                    Game1.button_RollDice.buttonActive = false;
+                    Game1.button_EndTurn.buttonActive = false;
                     if (optionsCalculated)
                     {
                         // Player chooses to purchase property
@@ -386,9 +397,15 @@ namespace SoshiLandSilverlight
                     // Post Roll Phase
 
                 case 2:
+                    // Enable/disable buttons
+                    Game1.button_RollDice.buttonActive = false;
+                    Game1.button_EndTurn.buttonActive = true;
+
                     // Player chooses to end turn
-                    if (kbInput.IsKeyDown(Keys.E) && previousKeyboardInput.IsKeyUp(Keys.E))
+                    if (Game1.button_EndTurn.buttonTriggered)
+                    //if (kbInput.IsKeyDown(Keys.E) && previousKeyboardInput.IsKeyUp(Keys.E))
                     {
+                        Game1.button_EndTurn.buttonTriggered = false;
                         // Check if doubles has been rolled
                         if (DoublesRolled && !currentTurnsPlayers.inJail)
                         {

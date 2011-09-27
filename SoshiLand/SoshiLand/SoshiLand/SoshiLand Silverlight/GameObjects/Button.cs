@@ -19,6 +19,10 @@ namespace SoshiLandSilverlight
 
         public Rectangle buttonRectangle;
         public bool buttonTriggered;
+        public bool buttonActive;
+
+        private double buttonHighlightGameTime;
+        private double buttonHighlightTotalLength = 150;
 
         public Button(string name, Texture2D pressed, Texture2D notPressed, Rectangle rectangle)
         {
@@ -36,6 +40,7 @@ namespace SoshiLandSilverlight
         {
             currentTexture = buttonPressed;
             buttonTriggered = true;
+            buttonHighlightGameTime = 0;
         }
 
         public void UnPressButton()
@@ -51,21 +56,27 @@ namespace SoshiLandSilverlight
             spriteBatch.End();
         }
 
-        public void ButtonClickUpdate(MouseState ms)
+        public void ButtonClickUpdate(MouseState ms, GameTime gameTime)
         {
-            // Check if mouse is within button bounds
-            if (ms.X > buttonRectangle.X &&
-                ms.X < buttonRectangle.X + buttonRectangle.Width &&
-                ms.Y > buttonRectangle.Y &&
-                ms.Y < buttonRectangle.Y + buttonRectangle.Height)
+            if (buttonActive && currentTexture == buttonUnPressed)
             {
-                if (ms.LeftButton == ButtonState.Pressed && !buttonTriggered && SoshilandGame.turnPhase == 0)
-                    PressButton();
-                else
-                    UnPressButton();
+                // Check if mouse is within button bounds
+                if (ms.X > buttonRectangle.X &&
+                    ms.X < buttonRectangle.X + buttonRectangle.Width &&
+                    ms.Y > buttonRectangle.Y &&
+                    ms.Y < buttonRectangle.Y + buttonRectangle.Height)
+                {
+                    if (ms.LeftButton == ButtonState.Pressed && !buttonTriggered)
+                        PressButton();
+                }
             }
-            else
-                UnPressButton();
+
+            if (currentTexture == buttonPressed)
+            {
+                buttonHighlightGameTime += gameTime.ElapsedGameTime.Milliseconds;
+                if (buttonHighlightGameTime > buttonHighlightTotalLength)
+                    currentTexture = buttonUnPressed;
+            }
         }
     }
 }

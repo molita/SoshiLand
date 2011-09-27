@@ -58,7 +58,9 @@ namespace SoshiLandSilverlight
         int testCounter = 100;
         Texture2D testTexture;
 
+        // Buttons
         public static Button button_RollDice;
+        public static Button button_EndTurn;
 
         KeyboardState prevKeyboardState = Keyboard.GetState();
 
@@ -142,11 +144,16 @@ namespace SoshiLandSilverlight
             SoshilandGame.ListOfPlayers[0].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
             SoshilandGame.ListOfPlayers[1].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
 
+            // Roll Dice Button
             Texture2D rollPressed = Content.Load<Texture2D>("Buttons/Button_RollDicePressed");
             Texture2D rollUnPressed = Content.Load<Texture2D>("Buttons/Button_RollDiceNotPressed");
             Rectangle rollRectangle = new Rectangle(30, 200, rollPressed.Width / 2, rollPressed.Height / 2); 
-
             button_RollDice = new Button("Roll", rollPressed, rollUnPressed, rollRectangle);
+
+            Texture2D endTurnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurnPressed");
+            Texture2D endTurnUnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurn");
+            Rectangle endTurnRectangle = new Rectangle(30, 300, endTurnPressed.Width / 2, endTurnPressed.Height / 2);
+            button_EndTurn = new Button("EndTurn", endTurnPressed, endTurnUnPressed, endTurnRectangle);
 
         }
 
@@ -178,7 +185,9 @@ namespace SoshiLandSilverlight
             drawId = SoshiLandUIFunctions.MouseCursorHoverForZoom(ms);
 
             // Buttons
-            button_RollDice.ButtonClickUpdate(ms);
+            button_RollDice.ButtonClickUpdate(ms, gameTime);
+            button_EndTurn.ButtonClickUpdate(ms, gameTime);
+
 
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
@@ -228,6 +237,7 @@ namespace SoshiLandSilverlight
             
             spriteBatch.Draw( background, mainFrame, Color.White );
             button_RollDice.Draw(spriteBatch);
+            button_EndTurn.Draw(spriteBatch);
 
             // Draw Board Pieces
             if (SoshilandGame.ListOfPlayers != null)
