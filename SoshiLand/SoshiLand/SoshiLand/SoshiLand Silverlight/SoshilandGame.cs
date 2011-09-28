@@ -219,6 +219,10 @@ namespace SoshiLandSilverlight
                     // Enable/disable buttons
                     Game1.button_RollDice.buttonActive = true;
                     Game1.button_EndTurn.buttonActive = false;
+                    Game1.button_Auction.buttonActive = false;
+                    Game1.button_Buy.buttonActive = false;
+                    Game1.button_Mortgage.buttonActive = false;
+                    Game1.button_Trade.buttonActive = true;
 
                     // Check if player is in jail
                     if (currentTurnsPlayers.inJail)
@@ -308,6 +312,10 @@ namespace SoshiLandSilverlight
                     // Enable/disable buttons
                     Game1.button_RollDice.buttonActive = false;
                     Game1.button_EndTurn.buttonActive = false;
+                    Game1.button_Auction.buttonActive = false;
+                    Game1.button_Buy.buttonActive = false;
+                    Game1.button_Mortgage.buttonActive = false;
+                    Game1.button_Trade.buttonActive = false;
                     // Check when animation is done
                     if (!SoshiLandGameFunctions.animatingBoardPieceMovement && SoshiLandGameFunctions.doneMoveAnimation)
                     {
@@ -317,14 +325,29 @@ namespace SoshiLandSilverlight
                     break;
                     // Roll Phase
                 case 1:
-                    // Enable/disable buttons
-                    Game1.button_RollDice.buttonActive = false;
-                    Game1.button_EndTurn.buttonActive = false;
+                    
                     if (optionsCalculated)
                     {
-                        // Player chooses to purchase property
-                        if (kbInput.IsKeyDown(Keys.P) && previousKeyboardInput.IsKeyUp(Keys.P))
+                        // Enable/disable buttons
+                        Game1.button_RollDice.buttonActive = false;
+                        Game1.button_EndTurn.buttonActive = false;
+                        Game1.button_Trade.buttonActive = true;
+
+                        if (optionPurchaseOrAuctionProperty || optionPurchaseOrAuctionUtility)
                         {
+                            Game1.button_Buy.buttonActive = true;
+                            Game1.button_Auction.buttonActive = true;
+                        }
+
+                        if (optionPromptMortgageOrTrade)
+                        {
+                            Game1.button_Mortgage.buttonActive = false;
+                        }
+                        // Player chooses to purchase property
+                        //if (kbInput.IsKeyDown(Keys.P) && previousKeyboardInput.IsKeyUp(Keys.P))
+                        if (Game1.button_Buy.buttonTriggered)
+                        {
+                            Game1.button_Buy.buttonTriggered = false;
                             bool successfulPurchase = false;
                             // Purchase Property
                             if (optionPurchaseOrAuctionProperty)
@@ -349,8 +372,6 @@ namespace SoshiLandSilverlight
                         }
 
                         // Player chooses to Auction
-
-
 
                         if (optionPromptLuxuryTax)
                         {
@@ -400,7 +421,10 @@ namespace SoshiLandSilverlight
                     // Enable/disable buttons
                     Game1.button_RollDice.buttonActive = false;
                     Game1.button_EndTurn.buttonActive = true;
-
+                    Game1.button_Auction.buttonActive = false;
+                    Game1.button_Buy.buttonActive = false;
+                    Game1.button_Mortgage.buttonActive = true;
+                    Game1.button_Trade.buttonActive = true;
                     // Player chooses to end turn
                     if (Game1.button_EndTurn.buttonTriggered)
                     //if (kbInput.IsKeyDown(Keys.E) && previousKeyboardInput.IsKeyUp(Keys.E))
