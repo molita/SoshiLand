@@ -160,7 +160,7 @@ namespace SoshiLandSilverlight
 
             // Roll Dice Button
             Texture2D rollPressed = Content.Load<Texture2D>("Buttons/Button_RollDicePressed");
-            Texture2D rollUnPressed = Content.Load<Texture2D>("Buttons/Button_RollDiceNotPressed");
+            Texture2D rollUnPressed = Content.Load<Texture2D>("Buttons/Button_RollDiceUnPressed");
 
             // This is assuming that all the buttons are same width
             int leftAlignment = (SoshiLandUIFunctions.window_sideSizeWidth - (rollPressed.Width / 2)) / 2;
@@ -171,28 +171,28 @@ namespace SoshiLandSilverlight
             Rectangle rollRectangle = new Rectangle(leftAlignment, 240, buttonWidth, buttonHeight); 
             button_RollDice = new Button("Roll", rollPressed, rollUnPressed, rollRectangle);
 
-            Texture2D buyPressed = Content.Load<Texture2D>("Buttons/Button_Buy");
-            Texture2D buyUnPressed = Content.Load<Texture2D>("Buttons/Button_Buy");
+            Texture2D buyPressed = Content.Load<Texture2D>("Buttons/Button_BuyPressed");
+            Texture2D buyUnPressed = Content.Load<Texture2D>("Buttons/Button_BuyUnPressed");
             Rectangle buyRectangle = new Rectangle(leftAlignment, 300, buttonWidth, buttonHeight);
             button_Buy = new Button("Buy", buyPressed, buyUnPressed, buyRectangle);
 
-            Texture2D auctionPressed = Content.Load<Texture2D>("Buttons/Button_Auction");
-            Texture2D auctionUnPressed = Content.Load<Texture2D>("Buttons/Button_Auction");
+            Texture2D auctionPressed = Content.Load<Texture2D>("Buttons/Button_AuctionPressed");
+            Texture2D auctionUnPressed = Content.Load<Texture2D>("Buttons/Button_AuctionUnPressed");
             Rectangle auctionRectangle = new Rectangle(leftAlignment, 360, buttonWidth, buttonHeight);
             button_Auction = new Button("Auction", auctionPressed, auctionUnPressed, auctionRectangle);
 
-            Texture2D tradePressed = Content.Load<Texture2D>("Buttons/Button_Trade");
-            Texture2D tradeUnPressed = Content.Load<Texture2D>("Buttons/Button_Trade");
+            Texture2D tradePressed = Content.Load<Texture2D>("Buttons/Button_TradePressed");
+            Texture2D tradeUnPressed = Content.Load<Texture2D>("Buttons/Button_TradeUnPressed");
             Rectangle tradeRectangle = new Rectangle(leftAlignment, 420, buttonWidth, buttonHeight);
             button_Trade = new Button("Trade", tradePressed, tradeUnPressed, tradeRectangle);
 
-            Texture2D mortgagePressed = Content.Load<Texture2D>("Buttons/Button_Mortgage");
-            Texture2D mortgageUnPressed = Content.Load<Texture2D>("Buttons/Button_Mortgage");
+            Texture2D mortgagePressed = Content.Load<Texture2D>("Buttons/Button_MortgagePressed");
+            Texture2D mortgageUnPressed = Content.Load<Texture2D>("Buttons/Button_MortgageUnPressed");
             Rectangle mortgageRectangle = new Rectangle(leftAlignment, 480, buttonWidth, buttonHeight);
             button_Mortgage = new Button("Mortgage", mortgagePressed, mortgageUnPressed, mortgageRectangle);
 
             Texture2D endTurnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurnPressed");
-            Texture2D endTurnUnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurn");
+            Texture2D endTurnUnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurnUnPressed");
             Rectangle endTurnRectangle = new Rectangle(leftAlignment, 540, buttonWidth, buttonHeight);
             button_EndTurn = new Button("EndTurn", endTurnPressed, endTurnUnPressed, endTurnRectangle);
 
@@ -232,7 +232,6 @@ namespace SoshiLandSilverlight
             button_Buy.ButtonClickUpdate(ms, gameTime);
             button_Mortgage.ButtonClickUpdate(ms, gameTime);
             button_Trade.ButtonClickUpdate(ms, gameTime);
-
 
             if (soshiLandGame != null)
                 soshiLandGame.PlayerInputUpdate();
