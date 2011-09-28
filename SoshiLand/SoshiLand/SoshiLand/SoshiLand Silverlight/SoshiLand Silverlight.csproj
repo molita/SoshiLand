@@ -126,10 +126,14 @@
     <Content Include="Content\BoardPieces\Tiffany.png" />
     <Content Include="Content\BoardPieces\Yoona.png" />
     <Content Include="Content\BoardPieces\Yuri.png" />
+    <Content Include="Content\Buttons\Button_Auction.png" />
+    <Content Include="Content\Buttons\Button_Buy.png" />
     <Content Include="Content\Buttons\Button_EndTurn.png" />
     <Content Include="Content\Buttons\Button_EndTurnPressed.png" />
+    <Content Include="Content\Buttons\Button_Mortgage.png" />
     <Content Include="Content\Buttons\Button_RollDiceNotPressed.png" />
     <Content Include="Content\Buttons\Button_RollDicePressed.png" />
+    <Content Include="Content\Buttons\Button_Trade.png" />
     <Content Include="Content\Dice\Dice1.png" />
     <Content Include="Content\Dice\Dice2.png" />
     <Content Include="Content\Dice\Dice3.png" />

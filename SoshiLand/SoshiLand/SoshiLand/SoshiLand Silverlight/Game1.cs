@@ -61,6 +61,10 @@ namespace SoshiLandSilverlight
         // Buttons
         public static Button button_RollDice;
         public static Button button_EndTurn;
+        public static Button button_Auction;
+        public static Button button_Buy;
+        public static Button button_Trade;
+        public static Button button_Mortgage;
 
         KeyboardState prevKeyboardState = Keyboard.GetState();
 
@@ -157,14 +161,39 @@ namespace SoshiLandSilverlight
             // Roll Dice Button
             Texture2D rollPressed = Content.Load<Texture2D>("Buttons/Button_RollDicePressed");
             Texture2D rollUnPressed = Content.Load<Texture2D>("Buttons/Button_RollDiceNotPressed");
-            // This is assuming the buttons are same width
+
+            // This is assuming that all the buttons are same width
             int leftAlignment = (SoshiLandUIFunctions.window_sideSizeWidth - (rollPressed.Width / 2)) / 2;
-            Rectangle rollRectangle = new Rectangle(leftAlignment, 200, rollPressed.Width / 2, rollPressed.Height / 2); 
+            int buttonWidth = rollPressed.Width / 2;
+            int buttonHeight = rollPressed.Height / 2;
+
+
+            Rectangle rollRectangle = new Rectangle(leftAlignment, 240, buttonWidth, buttonHeight); 
             button_RollDice = new Button("Roll", rollPressed, rollUnPressed, rollRectangle);
+
+            Texture2D buyPressed = Content.Load<Texture2D>("Buttons/Button_Buy");
+            Texture2D buyUnPressed = Content.Load<Texture2D>("Buttons/Button_Buy");
+            Rectangle buyRectangle = new Rectangle(leftAlignment, 300, buttonWidth, buttonHeight);
+            button_Buy = new Button("Buy", buyPressed, buyUnPressed, buyRectangle);
+
+            Texture2D auctionPressed = Content.Load<Texture2D>("Buttons/Button_Auction");
+            Texture2D auctionUnPressed = Content.Load<Texture2D>("Buttons/Button_Auction");
+            Rectangle auctionRectangle = new Rectangle(leftAlignment, 360, buttonWidth, buttonHeight);
+            button_Auction = new Button("Auction", auctionPressed, auctionUnPressed, auctionRectangle);
+
+            Texture2D tradePressed = Content.Load<Texture2D>("Buttons/Button_Trade");
+            Texture2D tradeUnPressed = Content.Load<Texture2D>("Buttons/Button_Trade");
+            Rectangle tradeRectangle = new Rectangle(leftAlignment, 420, buttonWidth, buttonHeight);
+            button_Trade = new Button("Trade", tradePressed, tradeUnPressed, tradeRectangle);
+
+            Texture2D mortgagePressed = Content.Load<Texture2D>("Buttons/Button_Mortgage");
+            Texture2D mortgageUnPressed = Content.Load<Texture2D>("Buttons/Button_Mortgage");
+            Rectangle mortgageRectangle = new Rectangle(leftAlignment, 480, buttonWidth, buttonHeight);
+            button_Mortgage = new Button("Mortgage", mortgagePressed, mortgageUnPressed, mortgageRectangle);
 
             Texture2D endTurnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurnPressed");
             Texture2D endTurnUnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurn");
-            Rectangle endTurnRectangle = new Rectangle(leftAlignment, 300, endTurnPressed.Width / 2, endTurnPressed.Height / 2);
+            Rectangle endTurnRectangle = new Rectangle(leftAlignment, 540, buttonWidth, buttonHeight);
             button_EndTurn = new Button("EndTurn", endTurnPressed, endTurnUnPressed, endTurnRectangle);
 
         }
@@ -199,6 +228,10 @@ namespace SoshiLandSilverlight
             // Buttons
             button_RollDice.ButtonClickUpdate(ms, gameTime);
             button_EndTurn.ButtonClickUpdate(ms, gameTime);
+            button_Auction.ButtonClickUpdate(ms, gameTime);
+            button_Buy.ButtonClickUpdate(ms, gameTime);
+            button_Mortgage.ButtonClickUpdate(ms, gameTime);
+            button_Trade.ButtonClickUpdate(ms, gameTime);
 
 
             if (soshiLandGame != null)
@@ -247,10 +280,16 @@ namespace SoshiLandSilverlight
             
             spriteBatch.Begin();
             
+            // Draw Background
             spriteBatch.Draw( background, mainFrame, Color.White );
+
+            // Draw Buttons
             button_RollDice.Draw(spriteBatch);
             button_EndTurn.Draw(spriteBatch);
-
+            button_Auction.Draw(spriteBatch);
+            button_Buy.Draw(spriteBatch);
+            button_Trade.Draw(spriteBatch);
+            button_Mortgage.Draw(spriteBatch);
             // Draw Board Pieces
             if (SoshilandGame.ListOfPlayers != null)
             {
