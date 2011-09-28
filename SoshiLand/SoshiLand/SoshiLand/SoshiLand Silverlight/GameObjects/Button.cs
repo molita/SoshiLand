@@ -52,7 +52,10 @@ namespace SoshiLandSilverlight
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(currentTexture, buttonRectangle, Color.White);
+            if (buttonActive)
+                spriteBatch.Draw(currentTexture, buttonRectangle, Color.White);
+            else
+                spriteBatch.Draw(currentTexture, buttonRectangle, Color.DimGray);
             spriteBatch.End();
         }
 

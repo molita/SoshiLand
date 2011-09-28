@@ -88,8 +88,16 @@ namespace SoshiLandSilverlight
             windowHeight = Convert.ToInt16(HtmlPage.Window.Eval("screen.availHeight").ToString());
 
             // Shrinking the window to be a ratio of the monitor resolution
+            /*
             preferredWindowWidth = (int)(windowWidth / 1.5);
             preferredWindowHeight = (int)(windowHeight / 1.5);
+            graphics.PreferredBackBufferHeight = preferredWindowHeight;
+            graphics.PreferredBackBufferWidth = preferredWindowWidth;
+            */
+
+            // Setting the size to be static
+            preferredWindowWidth = 1000;
+            preferredWindowHeight = 600;
             graphics.PreferredBackBufferHeight = preferredWindowHeight;
             graphics.PreferredBackBufferWidth = preferredWindowWidth;
 
@@ -144,15 +152,19 @@ namespace SoshiLandSilverlight
             SoshilandGame.ListOfPlayers[0].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
             SoshilandGame.ListOfPlayers[1].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
 
+            
+
             // Roll Dice Button
             Texture2D rollPressed = Content.Load<Texture2D>("Buttons/Button_RollDicePressed");
             Texture2D rollUnPressed = Content.Load<Texture2D>("Buttons/Button_RollDiceNotPressed");
-            Rectangle rollRectangle = new Rectangle(30, 200, rollPressed.Width / 2, rollPressed.Height / 2); 
+            // This is assuming the buttons are same width
+            int leftAlignment = (SoshiLandUIFunctions.window_sideSizeWidth - (rollPressed.Width / 2)) / 2;
+            Rectangle rollRectangle = new Rectangle(leftAlignment, 200, rollPressed.Width / 2, rollPressed.Height / 2); 
             button_RollDice = new Button("Roll", rollPressed, rollUnPressed, rollRectangle);
 
             Texture2D endTurnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurnPressed");
             Texture2D endTurnUnPressed = Content.Load<Texture2D>("Buttons/Button_EndTurn");
-            Rectangle endTurnRectangle = new Rectangle(30, 300, endTurnPressed.Width / 2, endTurnPressed.Height / 2);
+            Rectangle endTurnRectangle = new Rectangle(leftAlignment, 300, endTurnPressed.Width / 2, endTurnPressed.Height / 2);
             button_EndTurn = new Button("EndTurn", endTurnPressed, endTurnUnPressed, endTurnRectangle);
 
         }

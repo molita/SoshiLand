@@ -39,6 +39,8 @@ namespace SoshiLandSilverlight
         public static int window_cornerBoxIncludingBorder = (int)(window_cornerBox + (ratioBlackBorder * 2));
         public static int window_blackBorder = (int)(Game1.preferredWindowHeight * ratioBlackBorder);
 
+        public static int window_sideSizeWidth = window_leftSideOfBoard;    // NOTE: This is assuming both sides are equal sizes
+
         // Relative to the original size
         private static int orig_startOfSideRow = (int)(Game1.backgroundHeight * (ratioBlackBorder + ratioCornerBoxes));
         private static int orig_oneSideBox = (int)(Game1.backgroundHeight * (ratioBlackBorder + ratioSideBoxes));
@@ -51,7 +53,7 @@ namespace SoshiLandSilverlight
 
             zoomWidth = (int)(470 * zoomRatio);
             zoomHeight = (int)(800 * zoomRatio);
-
+            /*
             // Relative to the window size
             window_leftSideOfBoard = ((Game1.preferredWindowWidth - (Game1.preferredWindowHeight)) / 2);
             window_rightSideOfBoard = window_leftSideOfBoard + Game1.preferredWindowHeight;
@@ -60,12 +62,27 @@ namespace SoshiLandSilverlight
             window_cornerBox = (int)(Game1.preferredWindowHeight * (ratioCornerBoxes));
             window_cornerBoxIncludingBorder = (int)(window_cornerBox + (ratioBlackBorder * 2));
             window_blackBorder = (int)(Game1.preferredWindowHeight * ratioBlackBorder);
+            */
 
+            
             // Relative to the original size
             orig_startOfSideRow = (int)(Game1.backgroundHeight * (ratioBlackBorder + ratioCornerBoxes));
             orig_oneSideBox = (int)(Game1.backgroundHeight * (ratioBlackBorder + ratioSideBoxes));
             orig_oneSideBoxIncludingBorder = (int)(Game1.backgroundHeight * ((ratioBlackBorder * 2) + ratioSideBoxes));
             orig_cornerBoxIncludingBorder = (int)(Game1.backgroundHeight * ((ratioBlackBorder * 2) + ratioCornerBoxes));
+
+            
+            // These values are for the static 1000x600 size
+            window_leftSideOfBoard = 200;
+            window_rightSideOfBoard = 800;
+            
+            window_oneSideBox = 41;
+            window_oneSideBoxIncludingBorder = 42;
+            window_cornerBox = 69;
+            window_cornerBoxIncludingBorder = 70;
+            window_blackBorder = 1;
+
+            window_sideSizeWidth = window_leftSideOfBoard;
         }
 
         public static Props MouseCursorHoverForZoom(MouseState mouseState)
@@ -91,15 +108,15 @@ namespace SoshiLandSilverlight
                     return Props.GreatWall;
                 else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 7))
                     return Props.TajMahal;
-                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 8))
+                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 8) - 1)
                     return Props.StatueLiberty;
-                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 9))
+                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 9) - 1)
                     return Props.Forever9;
-                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 10))
+                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 10) - 1)
                     return Props.EiffelTower;
-                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 11))
+                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 11) - 1)
                     return Props.Parthenon;
-                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 11) + window_cornerBoxIncludingBorder)
+                else if (mouseState.X <= window_leftSideOfBoard + window_cornerBoxIncludingBorder + (window_oneSideBoxIncludingBorder * 11) + window_cornerBoxIncludingBorder - 1)
                     return Props.GoBabysit;
             }
             
@@ -317,7 +334,7 @@ namespace SoshiLandSilverlight
             {
                 // Locations excluding Corners
 
-             
+             /*
                 // Bottom Row
                 if (i > 0 && i < 12)
                 {
@@ -360,18 +377,79 @@ namespace SoshiLandSilverlight
                         (window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2)), // The middle of the box, heightwise
                         (window_cornerBox + window_blackBorder) + (temp * window_oneSideBoxIncludingBorder) - (window_oneSideBoxIncludingBorder / 2)); // Middle of the box, widthwise
                 }
+                */
+                
+                // Switching these to static based on 1000x600
+                // Going to hardcode these because it's always slightly off when calculating based on ratios
+
+                int middleOfBottomRowY = 565;
+                int middleOfLeftColumnX = 235;
+                int middleOfRightColumnX = 765;
+                int middleOfTopRowY = 35;
+
+                // Bottom Row
+                centerBoardPositions[1] = new Vector2(708, middleOfBottomRowY);
+                centerBoardPositions[2] = new Vector2(667, middleOfBottomRowY);
+                centerBoardPositions[3] = new Vector2(624, middleOfBottomRowY);
+                centerBoardPositions[4] = new Vector2(583, middleOfBottomRowY);
+                centerBoardPositions[5] = new Vector2(542, middleOfBottomRowY);
+                centerBoardPositions[6] = new Vector2(500, middleOfBottomRowY);
+                centerBoardPositions[7] = new Vector2(459, middleOfBottomRowY);
+                centerBoardPositions[8] = new Vector2(417, middleOfBottomRowY);
+                centerBoardPositions[9] = new Vector2(375, middleOfBottomRowY);
+                centerBoardPositions[10] = new Vector2(333, middleOfBottomRowY);
+                centerBoardPositions[11] = new Vector2(291, middleOfBottomRowY);
+
+                // Left Column
+                centerBoardPositions[13] = new Vector2(middleOfLeftColumnX, 508);
+                centerBoardPositions[14] = new Vector2(middleOfLeftColumnX, 467);
+                centerBoardPositions[15] = new Vector2(middleOfLeftColumnX, 424);
+                centerBoardPositions[16] = new Vector2(middleOfLeftColumnX, 383);
+                centerBoardPositions[17] = new Vector2(middleOfLeftColumnX, 342);
+                centerBoardPositions[18] = new Vector2(middleOfLeftColumnX, 300);
+                centerBoardPositions[19] = new Vector2(middleOfLeftColumnX, 259);
+                centerBoardPositions[20] = new Vector2(middleOfLeftColumnX, 217);
+                centerBoardPositions[21] = new Vector2(middleOfLeftColumnX, 175);
+                centerBoardPositions[22] = new Vector2(middleOfLeftColumnX, 133);
+                centerBoardPositions[23] = new Vector2(middleOfLeftColumnX, 91);
+
+                // Top Row
+                centerBoardPositions[35] = new Vector2(708, middleOfTopRowY);
+                centerBoardPositions[34] = new Vector2(667, middleOfTopRowY);
+                centerBoardPositions[33] = new Vector2(624, middleOfTopRowY);
+                centerBoardPositions[32] = new Vector2(583, middleOfTopRowY);
+                centerBoardPositions[31] = new Vector2(542, middleOfTopRowY);
+                centerBoardPositions[30] = new Vector2(500, middleOfTopRowY);
+                centerBoardPositions[29] = new Vector2(459, middleOfTopRowY);
+                centerBoardPositions[28] = new Vector2(417, middleOfTopRowY);
+                centerBoardPositions[27] = new Vector2(375, middleOfTopRowY);
+                centerBoardPositions[26] = new Vector2(333, middleOfTopRowY);
+                centerBoardPositions[25] = new Vector2(291, middleOfTopRowY);
+
+                // Left Column
+                centerBoardPositions[47] = new Vector2(middleOfRightColumnX, 508);
+                centerBoardPositions[46] = new Vector2(middleOfRightColumnX, 467);
+                centerBoardPositions[45] = new Vector2(middleOfRightColumnX, 424);
+                centerBoardPositions[44] = new Vector2(middleOfRightColumnX, 383);
+                centerBoardPositions[43] = new Vector2(middleOfRightColumnX, 342);
+                centerBoardPositions[42] = new Vector2(middleOfRightColumnX, 300);
+                centerBoardPositions[41] = new Vector2(middleOfRightColumnX, 259);
+                centerBoardPositions[40] = new Vector2(middleOfRightColumnX, 217);
+                centerBoardPositions[39] = new Vector2(middleOfRightColumnX, 175);
+                centerBoardPositions[38] = new Vector2(middleOfRightColumnX, 133);
+                centerBoardPositions[37] = new Vector2(middleOfRightColumnX, 91);
 
                 // Corner Boxes
 
                 // Go
                 if (i == 0)
-                    centerBoardPositions[i] = new Vector2(window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2), Game1.preferredWindowHeight - (window_cornerBoxIncludingBorder / 2));
+                    centerBoardPositions[i] = new Vector2(middleOfRightColumnX, middleOfBottomRowY);//new Vector2(window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2), Game1.preferredWindowHeight - (window_cornerBoxIncludingBorder / 2));
                 if (i == 12)
-                    centerBoardPositions[i] = new Vector2(window_leftSideOfBoard + (window_cornerBoxIncludingBorder / 2), Game1.preferredWindowHeight - (window_cornerBoxIncludingBorder / 2));
+                    centerBoardPositions[i] = new Vector2(middleOfLeftColumnX, middleOfBottomRowY);//new Vector2(window_leftSideOfBoard + (window_cornerBoxIncludingBorder / 2), Game1.preferredWindowHeight - (window_cornerBoxIncludingBorder / 2));
                 if (i == 24)
-                    centerBoardPositions[i] = new Vector2(window_leftSideOfBoard + (window_cornerBoxIncludingBorder / 2), (window_cornerBoxIncludingBorder / 2));
+                    centerBoardPositions[i] = new Vector2(middleOfLeftColumnX, middleOfTopRowY);//new Vector2(window_leftSideOfBoard + (window_cornerBoxIncludingBorder / 2), (window_cornerBoxIncludingBorder / 2));
                 if (i == 36)
-                    centerBoardPositions[i] = new Vector2(window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2), (window_cornerBoxIncludingBorder / 2));
+                    centerBoardPositions[i] = new Vector2(middleOfRightColumnX, middleOfTopRowY);//new Vector2(window_rightSideOfBoard - (window_cornerBoxIncludingBorder / 2), (window_cornerBoxIncludingBorder / 2));
             }
 
         }
