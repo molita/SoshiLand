@@ -465,7 +465,8 @@ namespace SoshiLandSilverlight
         public static void RearrangePiecesOnTile(int tileNumber)
         {
             int counter = 3;
-            if (numberOfPiecesInPosition[tileNumber] > 1)
+            if (true)
+            //if (numberOfPiecesInPosition[tileNumber] > 1)
             {
                 // Left or Right Column
                 if ((tileNumber > 12 && tileNumber < 24) || (tileNumber > 36 && tileNumber < 48))
@@ -485,20 +486,69 @@ namespace SoshiLandSilverlight
                 }
                 else
                 {
-                    foreach (Player p in SoshilandGame.ListOfPlayers)
+                    
+                    // Check if it's the jail tile
+                    if (tileNumber == 12)
                     {
-                        if (p.CurrentBoardPosition == tileNumber)
+                        foreach (Player p in SoshilandGame.ListOfPlayers)
                         {
-                            // First set the pieces back to the center
-                            p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y);
-                            // Offset piece
-                            p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X, p.getBoardPieceRectangle.Y + (counter * 6));
-                            // Decrement the counter
-                            counter--;
+                            // Check if the player is in jail
+                            if (!p.inJail)
+                            {
+                                if (counter > 0)
+                                {
+                                    // Set the pieces to the left bottom corner
+                                    p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X - 18, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y + 18);
+                                    // Offset piece
+                                    p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X + (counter * 12), p.getBoardPieceRectangle.Y);
+                                    // Decrement the counter
+                                    counter--;
+                                }
+                                else
+                                {
+                                    // Set the pieces to the left bottom corner
+                                    p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X - 18, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y + 18);
+                                    // Offset piece
+                                    p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X, p.getBoardPieceRectangle.Y + (counter * 6));
+                                    // Decrement the counter
+                                    counter--;
+                                }
+
+                            }
+                            else
+                            {
+                                // Player is in jail, so arrange pieces as they would be in jail
+                                // Set the pieces to the right top corner
+                                p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X + 20, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y - 20);
+                                // Offset piece
+                                p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X - Math.Abs((counter * 3)), p.getBoardPieceRectangle.Y - Math.Abs((counter * 3)));
+                                // Decrement the counter
+                                counter--;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (Player p in SoshilandGame.ListOfPlayers)
+                        {
+                            if (p.CurrentBoardPosition == tileNumber)
+                            {
+                                // First set the pieces back to the center
+                                p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y);
+                                // Offset piece
+                                p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X, p.getBoardPieceRectangle.Y + (counter * 6));
+                                // Decrement the counter
+                                counter--;
+                            }
                         }
                     }
                 }
             }
+        }
+
+        public static void RearrangePiecesOnZoomBox()
+        {
+
         }
     }
 }
