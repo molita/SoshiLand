@@ -257,8 +257,8 @@ namespace SoshiLandSilverlight
                                 
 
                                 SoshiLandGameFunctions.MovePlayerDiceRoll(currentTurnsPlayers, currentDiceRoll);   // Move player piece
-                                turnPhase = 1;                                              // Set the next phase
-                                PlayerOptions(currentTurnsPlayers);                         // Calculate options for player
+                                turnPhase = 4;                                              // Set the next phase
+                                //PlayerOptions(currentTurnsPlayers);                         // Calculate options for player
 
 
                                 DoublesRolled = false;  // Turn off doubles rolled flag because player is not supposed to take another turn after getting out of jail
@@ -287,8 +287,8 @@ namespace SoshiLandSilverlight
                             Game1.debugMessageQueue.addMessageToQueue("Player is no longer in jail!");
 
                             SoshiLandGameFunctions.RollDice(currentTurnsPlayers);              // Rolls Dice and Move Piece to Tile
-                            turnPhase = 1;                              // Set next phase
-                            PlayerOptions(currentTurnsPlayers);         // Calculate options for player
+                            turnPhase = 4;                              // Set next phase
+                            //PlayerOptions(currentTurnsPlayers);         // Calculate options for player
 
                             break;
                         }
@@ -319,12 +319,21 @@ namespace SoshiLandSilverlight
                     // Check when animation is done
                     if (!SoshiLandGameFunctions.animatingBoardPieceMovement && SoshiLandGameFunctions.doneMoveAnimation)
                     {
-                        turnPhase = 1;                              // Set next phase
-                        PlayerOptions(currentTurnsPlayers);         // Calculate options for player
+                        turnPhase = 5;                              // Set next phase
                     }
+                    break;
+                // This is to call the rearranging locations for the pieces on the same location
+                case 5:
+                    
+                    SoshiLandUIFunctions.RearrangePiecesOnTile(currentTurnsPlayers.CurrentBoardPosition);
+                    // Set the next phase
+                    turnPhase = 1;
+
+                    PlayerOptions(currentTurnsPlayers);         // Calculate options for player
                     break;
                     // Roll Phase
                 case 1:
+
                     
                     if (optionsCalculated)
                     {

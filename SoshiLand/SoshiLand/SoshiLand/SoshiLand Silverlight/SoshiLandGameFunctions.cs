@@ -68,12 +68,15 @@ namespace SoshiLandSilverlight
         {
             // Update the player's current position to the new position
             p.CurrentBoardPosition = position;
+            SoshiLandUIFunctions.numberOfPiecesInPosition[position]++;
             Game1.debugMessageQueue.addMessageToQueue("Player " + "\"" + p.getName + "\"" + " moves to Tile \"" + SoshilandGame.Tiles[position].getName + "\"");
         }
 
         public static void MovePlayerDiceRoll(Player p, int roll)
         {
             int currentPosition = p.CurrentBoardPosition;
+            if (SoshiLandUIFunctions.numberOfPiecesInPosition[currentPosition] > 0) // This check technically doesn't have to be here....
+                SoshiLandUIFunctions.numberOfPiecesInPosition[currentPosition]--;
             p.PreviousBoardPosition = currentPosition;
             int newPosition = currentPosition + roll;
 
@@ -256,6 +259,7 @@ namespace SoshiLandSilverlight
             // Set the amount to move only once
             if (!amountToMoveSet)
             {
+                p.SetBoardPieceRectangleLocation((int)fromPosition.X, (int)fromPosition.Y);
                 // Check if the X values are equal (this means the position is on the left or right columns)
                 if (fromPosition.X == toPosition.X)
                 {

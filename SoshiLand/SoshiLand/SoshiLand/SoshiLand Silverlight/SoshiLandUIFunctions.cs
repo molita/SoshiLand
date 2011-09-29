@@ -17,6 +17,8 @@ namespace SoshiLandSilverlight
     {
         // For storing the center (Vector 2) of each box on the board.
         public static Vector2[] centerBoardPositions;
+        // To store the number of pieces on a certain location
+        public static int[] numberOfPiecesInPosition;
 
         // Ratios based on the 7050x7050 board
         private static float ratioBlackBorder = 20f / 7050f;
@@ -53,6 +55,12 @@ namespace SoshiLandSilverlight
 
             zoomWidth = (int)(470 * zoomRatio);
             zoomHeight = (int)(800 * zoomRatio);
+
+            // Initialize the numberOfPiecesInPosition Variable
+            numberOfPiecesInPosition = new int[48];
+            for (int i = 0; i <numberOfPiecesInPosition.Length; i++)
+                numberOfPiecesInPosition[0] = 0;
+
             /*
             // Relative to the window size
             window_leftSideOfBoard = ((Game1.preferredWindowWidth - (Game1.preferredWindowHeight)) / 2);
@@ -452,6 +460,45 @@ namespace SoshiLandSilverlight
 
             }
             #endregion
+        }
+
+        public static void RearrangePiecesOnTile(int tileNumber)
+        {
+            int counter = 3;
+            if (numberOfPiecesInPosition[tileNumber] > 1)
+            {
+                // Left or Right Column
+                if ((tileNumber > 12 && tileNumber < 24) || (tileNumber > 36 && tileNumber < 48))
+                {
+                    foreach (Player p in SoshilandGame.ListOfPlayers)
+                    {
+                        if (p.CurrentBoardPosition == tileNumber)
+                        {
+                            // First set the pieces back to the center
+                            p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y);
+                            // Offset piece
+                            p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X + (counter * 6), p.getBoardPieceRectangle.Y);
+                            // Decrement the counter
+                            counter--;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (Player p in SoshilandGame.ListOfPlayers)
+                    {
+                        if (p.CurrentBoardPosition == tileNumber)
+                        {
+                            // First set the pieces back to the center
+                            p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y);
+                            // Offset piece
+                            p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X, p.getBoardPieceRectangle.Y + (counter * 6));
+                            // Decrement the counter
+                            counter--;
+                        }
+                    }
+                }
+            }
         }
     }
 }

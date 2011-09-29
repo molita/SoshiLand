@@ -152,9 +152,18 @@ namespace SoshiLandSilverlight
             // Temporary to test board pieces
             SoshilandGame.ListOfPlayers[0].PlayerChoosesBoardPiece(BoardPiece.ITNW_Tiffany);
             SoshilandGame.ListOfPlayers[1].PlayerChoosesBoardPiece(BoardPiece.ITNW_Taeyeon);
-
-            SoshilandGame.ListOfPlayers[0].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
-            SoshilandGame.ListOfPlayers[1].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
+            SoshilandGame.ListOfPlayers[2].PlayerChoosesBoardPiece(BoardPiece.ITNW_Jessica);
+            SoshilandGame.ListOfPlayers[3].PlayerChoosesBoardPiece(BoardPiece.ITNW_Seohyun);
+            SoshilandGame.ListOfPlayers[4].PlayerChoosesBoardPiece(BoardPiece.ITNW_Sunny);
+            SoshilandGame.ListOfPlayers[5].PlayerChoosesBoardPiece(BoardPiece.ITNW_Yuri);
+            SoshilandGame.ListOfPlayers[6].PlayerChoosesBoardPiece(BoardPiece.ITNW_Sooyoung);
+            SoshilandGame.ListOfPlayers[0].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y - 15);
+            SoshilandGame.ListOfPlayers[1].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y - 10);
+            SoshilandGame.ListOfPlayers[2].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y - 5);
+            SoshilandGame.ListOfPlayers[3].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y);
+            SoshilandGame.ListOfPlayers[4].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y + 5);
+            SoshilandGame.ListOfPlayers[5].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y + 10);
+            SoshilandGame.ListOfPlayers[6].SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[0].X, (int)SoshiLandUIFunctions.centerBoardPositions[0].Y + 15);
 
             
 
