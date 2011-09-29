@@ -24,9 +24,15 @@ namespace SoshiLandSilverlight
         // Board Piece Graphic Variables
         private Texture2D boardPiece;
         private Rectangle boardPieceRectangle;
+        private Rectangle zoomPieceRectangle;
+
 
         private int boardPieceWidth;
         private int boardPieceHeight;
+        private int zoomPieceWidth;
+        private int zoomPieceHeight;
+
+        public bool displayZoomPiece;
 
         public Texture2D getBoardPiece
         {
@@ -36,6 +42,11 @@ namespace SoshiLandSilverlight
         public Rectangle getBoardPieceRectangle
         {
             get { return boardPieceRectangle; }
+        }
+
+        public Rectangle getZoomPieceRectangle
+        {
+            get { return zoomPieceRectangle; }
         }
 
         public byte FreeJailCards
@@ -83,8 +94,11 @@ namespace SoshiLandSilverlight
         {
             Name = n;
             // Preset board pieces height and width
-            boardPieceHeight = 30;
-            boardPieceWidth = 38;
+            boardPieceHeight = (int)(149 * 0.3f);
+            boardPieceWidth = (int)(117 * 0.3f);
+
+            zoomPieceWidth = boardPieceWidth * 2;
+            zoomPieceHeight = boardPieceHeight * 2;
         }
 
         public int getMoney
@@ -95,6 +109,11 @@ namespace SoshiLandSilverlight
         public void SetBoardPieceRectangleLocation(int x, int y)
         {
             boardPieceRectangle = new Rectangle(x, y, boardPieceWidth, boardPieceHeight);
+        }
+
+        public void SetZoomPieceRectangleLocation(int x, int y)
+        {
+            zoomPieceRectangle = new Rectangle(x, y, zoomPieceWidth, zoomPieceHeight);
         }
 
         public void PlayerChoosesBoardPiece(BoardPiece b)

@@ -140,7 +140,7 @@ namespace SoshiLandSilverlight
                 else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 3)
                     return Props.Pisa;
                 else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 4)
-                    return Props.CommChest;
+                    return Props.CommChest1;
                 else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 5)
                     return Props.BarrierReef;
                 else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 6)
@@ -171,7 +171,7 @@ namespace SoshiLandSilverlight
                 else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 3)
                     return Props.MountEverest;
                 else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 4)
-                    return Props.CommChest;
+                    return Props.CommChest2;
                 else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 5)
                     return Props.GrandCanal;
                 else if (mouseState.Y <= window_cornerBoxIncludingBorder + window_oneSideBoxIncludingBorder * 6)
@@ -269,7 +269,7 @@ namespace SoshiLandSilverlight
                 case Props.GizaPyramid:
                 case Props.BigBen:
                 case Props.Pisa:
-                case Props.CommChest:
+                case Props.CommChest1:
                 case Props.BarrierReef:
                 case Props.WencelsasSquare:
                 case Props.BarcelonaAirport:
@@ -287,6 +287,7 @@ namespace SoshiLandSilverlight
                 case Props.WhiteHouse:
                 case Props.GyeongBokGoong:
                 case Props.MountEverest:
+                case Props.CommChest2:
                 case Props.GrandCanal:
                 case Props.VenetianResort:
                 case Props.ChateauDeChillon:
@@ -492,38 +493,41 @@ namespace SoshiLandSilverlight
                     {
                         foreach (Player p in SoshilandGame.ListOfPlayers)
                         {
-                            // Check if the player is in jail
-                            if (!p.inJail)
+                            if (p.CurrentBoardPosition == 12)
                             {
-                                if (counter > 0)
+                                // Check if the player is in jail
+                                if (!p.inJail)
                                 {
-                                    // Set the pieces to the left bottom corner
-                                    p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X - 18, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y + 18);
-                                    // Offset piece
-                                    p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X + (counter * 12), p.getBoardPieceRectangle.Y);
-                                    // Decrement the counter
-                                    counter--;
+                                    if (counter > 0)
+                                    {
+                                        // Set the pieces to the left bottom corner
+                                        p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X - 18, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y + 18);
+                                        // Offset piece
+                                        p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X + (counter * 12), p.getBoardPieceRectangle.Y);
+                                        // Decrement the counter
+                                        counter--;
+                                    }
+                                    else
+                                    {
+                                        // Set the pieces to the left bottom corner
+                                        p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X - 18, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y + 18);
+                                        // Offset piece
+                                        p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X, p.getBoardPieceRectangle.Y + (counter * 6));
+                                        // Decrement the counter
+                                        counter--;
+                                    }
+
                                 }
                                 else
                                 {
-                                    // Set the pieces to the left bottom corner
-                                    p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X - 18, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y + 18);
+                                    // Player is in jail, so arrange pieces as they would be in jail
+                                    // Set the pieces to the right top corner
+                                    p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X + 20, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y - 20);
                                     // Offset piece
-                                    p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X, p.getBoardPieceRectangle.Y + (counter * 6));
+                                    p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X - Math.Abs((counter * 3)), p.getBoardPieceRectangle.Y - Math.Abs((counter * 3)));
                                     // Decrement the counter
                                     counter--;
                                 }
-
-                            }
-                            else
-                            {
-                                // Player is in jail, so arrange pieces as they would be in jail
-                                // Set the pieces to the right top corner
-                                p.SetBoardPieceRectangleLocation((int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].X + 20, (int)SoshiLandUIFunctions.centerBoardPositions[tileNumber].Y - 20);
-                                // Offset piece
-                                p.SetBoardPieceRectangleLocation(p.getBoardPieceRectangle.X - Math.Abs((counter * 3)), p.getBoardPieceRectangle.Y - Math.Abs((counter * 3)));
-                                // Decrement the counter
-                                counter--;
                             }
                         }
                     }
@@ -546,9 +550,123 @@ namespace SoshiLandSilverlight
             }
         }
 
-        public static void RearrangePiecesOnZoomBox()
+        public static int GetTileNumber(Props p)
         {
+            switch (p)
+            {
+                case Props.Go:
+                    return 0;
+                case Props.BukitTimah:
+                    return 1;
+                case Props.CNTower:
+                    return 2;
+                case Props.KuwaitMuseum:
+                    return 3;
+                case Props.WalkOfFame:
+                    return 4;
+                case Props.LuxuryTax:
+                    return 5;
+                case Props.AngkorWat:
+                    return 6;
+                case Props.Disneyland:
+                    return 7;
+                case Props.Chance1:
+                    return 8;
+                case Props.AmazonRainforest:
+                    return 9;
+                case Props.HongKong:
+                    return 10;
+                case Props.UNHQ:
+                    return 11;
+                case Props.Babysit:
+                    return 12;
+                case Props.SydneyOpera:
+                    return 13;
+                case Props.GoldenGateBridge:
+                    return 14;
+                case Props.SoshiBond:
+                    return 15;
+                case Props.MalibuBeach:
+                    return 16;
+                case Props.BarcelonaAirport:
+                    return 17;
+                case Props.WencelsasSquare:
+                    return 18;
+                case Props.BarrierReef:
+                    return 19;
+                case Props.CommChest1:
+                    return 20;
+                case Props.Pisa:
+                    return 21;
+                case Props.BigBen:
+                    return 22;
+                case Props.GizaPyramid:
+                    return 23;
+                case Props.FanMeeting:
+                    return 24;
+                case Props.LaScala:
+                    return 25;
+                case Props.Bali:
+                    return 26;
+                case Props.Chance2:
+                    return 27;
+                case Props.TempleMount:
+                    return 28;
+                case Props.DamnoenMarket:
+                    return 29;
+                case Props.GreatWall:
+                    return 30;
+                case Props.TajMahal:
+                    return 31;
+                case Props.StatueLiberty:
+                    return 32;
+                case Props.Forever9:
+                    return 33;
+                case Props.EiffelTower:
+                    return 34;
+                case Props.Parthenon:
+                    return 35;
+                case Props.GoBabysit:
+                    return 36;
+                case Props.WhiteHouse:
+                    return 37;
+                case Props.GyeongBokGoong:
+                    return 38;
+                case Props.MountEverest:
+                    return 39;
+                case Props.CommChest2:
+                    return 40;
+                case Props.GrandCanal:
+                    return 41;
+                case Props.VenetianResort:
+                    return 42;
+                case Props.ChateauDeChillon:
+                    return 43;
+                case Props.TokyoDome:
+                    return 44;
+                case Props.ShoppingSpree:
+                    return 45;
+                case Props.Colosseum:
+                    return 46;
+                case Props.BlueHouse:
+                    return 47;
 
+            }
+
+            // This would be an error
+            return -1;
+        }
+
+        public static void RearrangePiecesOnZoomBox(int tileNumber, SpriteBatch spriteBatch)
+        {
+            foreach (Player p in SoshilandGame.ListOfPlayers)
+            {
+                if (p.CurrentBoardPosition == tileNumber)
+                {
+                    p.SetZoomPieceRectangleLocation(900, 100);
+                    spriteBatch.Draw(p.getBoardPiece, p.getZoomPieceRectangle, new Rectangle(0, 0, p.getBoardPiece.Width, p.getBoardPiece.Height), Color.White, 0, new Vector2(p.getBoardPiece.Width / 2, p.getBoardPiece.Height / 2), SpriteEffects.None, 0);
+                }
+            }
         }
     }
 }

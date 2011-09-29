@@ -343,7 +343,8 @@ namespace SoshiLandSilverlight
 
                     // 4th Items
                 case Props.TempleMount: 
-                case Props.CommChest: 
+                case Props.CommChest2: 
+                case Props.CommChest1:
                 case Props.Chance2: 
                     SoshiLandUIFunctions.DrawZoomInSideBoxes(drawId, 4, spriteBatch); 
                     break;
@@ -408,7 +409,8 @@ namespace SoshiLandSilverlight
             }
             #endregion
 
-            
+            SoshiLandUIFunctions.RearrangePiecesOnZoomBox(SoshiLandUIFunctions.GetTileNumber(drawId), spriteBatch);
+
             if (DEBUG)
             {
                 debugMessageQueue.PrintMessages(gameTime, spriteBatch);
