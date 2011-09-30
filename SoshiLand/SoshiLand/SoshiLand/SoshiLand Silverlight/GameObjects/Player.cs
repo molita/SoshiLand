@@ -97,8 +97,8 @@ namespace SoshiLandSilverlight
             boardPieceHeight = (int)(149 * 0.3f);
             boardPieceWidth = (int)(117 * 0.3f);
 
-            zoomPieceWidth = boardPieceWidth * 2;
-            zoomPieceHeight = boardPieceHeight * 2;
+            zoomPieceWidth = (int)(boardPieceWidth * 1.5f);
+            zoomPieceHeight = (int)(boardPieceHeight * 1.5f);
         }
 
         public int getMoney

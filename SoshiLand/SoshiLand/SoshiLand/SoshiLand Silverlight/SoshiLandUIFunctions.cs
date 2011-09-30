@@ -17,6 +17,8 @@ namespace SoshiLandSilverlight
     {
         // For storing the center (Vector 2) of each box on the board.
         public static Vector2[] centerBoardPositions;
+        // For storing the preset locations on the zoom box for the board pieces
+        public static Vector2[] zoomBoxPiecesPositions;
         // To store the number of pieces on a certain location
         public static int[] numberOfPiecesInPosition;
 
@@ -91,6 +93,29 @@ namespace SoshiLandSilverlight
             window_blackBorder = 1;
 
             window_sideSizeWidth = window_leftSideOfBoard;
+
+            // Hardcoding these since the board is static now
+            zoomBoxPiecesPositions = new Vector2[9];
+            int middleX = ((Game1.preferredWindowWidth - window_rightSideOfBoard) / 2) + window_rightSideOfBoard;
+            int bottomYRow = zoomHeight - 50;
+            int topYRow = zoomHeight - 100;
+            /*
+            zoomBoxPiecesPositions[0] = new Vector2(middleX + 50, bottomYRow);
+            zoomBoxPiecesPositions[1] = new Vector2(middleX + 20, bottomYRow);
+            zoomBoxPiecesPositions[2] = new Vector2(middleX - 20, bottomYRow);
+            zoomBoxPiecesPositions[3] = new Vector2(middleX - 50, bottomYRow);
+            zoomBoxPiecesPositions[4] = new Vector2(middleX + 60, topYRow);
+            zoomBoxPiecesPositions[5] = new Vector2(middleX + 30, topYRow);
+            zoomBoxPiecesPositions[6] = new Vector2(middleX + 0, topYRow);
+            zoomBoxPiecesPositions[7] = new Vector2(middleX - 30, topYRow);
+            zoomBoxPiecesPositions[8] = new Vector2(middleX - 60, topYRow);
+            */
+            // Going to instead stack the pieces on the right side. 
+            // The above code was attempting to put the pieces on the tile itself, but it may cover some text
+            int XrightSide = Game1.preferredWindowWidth - 10;
+            for (int a = 0; a < zoomBoxPiecesPositions.Length; a++)
+                zoomBoxPiecesPositions[a] = new Vector2(XrightSide, (50 * a) + 20);
+
         }
 
         public static Props MouseCursorHoverForZoom(MouseState mouseState)
@@ -657,14 +682,16 @@ namespace SoshiLandSilverlight
             return -1;
         }
 
-        public static void RearrangePiecesOnZoomBox(int tileNumber, SpriteBatch spriteBatch)
+        public static void DrawPiecesOnZoomBox(int tileNumber, SpriteBatch spriteBatch)
         {
+            int counter = 0;
             foreach (Player p in SoshilandGame.ListOfPlayers)
             {
                 if (p.CurrentBoardPosition == tileNumber)
                 {
-                    p.SetZoomPieceRectangleLocation(900, 100);
+                    p.SetZoomPieceRectangleLocation((int)zoomBoxPiecesPositions[counter].X, (int)zoomBoxPiecesPositions[counter].Y);
                     spriteBatch.Draw(p.getBoardPiece, p.getZoomPieceRectangle, new Rectangle(0, 0, p.getBoardPiece.Width, p.getBoardPiece.Height), Color.White, 0, new Vector2(p.getBoardPiece.Width / 2, p.getBoardPiece.Height / 2), SpriteEffects.None, 0);
+                    counter++;
                 }
             }
         }

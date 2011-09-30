@@ -409,7 +409,7 @@ namespace SoshiLandSilverlight
             }
             #endregion
 
-            SoshiLandUIFunctions.RearrangePiecesOnZoomBox(SoshiLandUIFunctions.GetTileNumber(drawId), spriteBatch);
+            SoshiLandUIFunctions.DrawPiecesOnZoomBox(SoshiLandUIFunctions.GetTileNumber(drawId), spriteBatch);
 
             if (DEBUG)
             {
